@@ -314,7 +314,7 @@ layout = {
 				{ elem: "#boots", props: { y: "-=4" } },
 				{ elem: "#pearl", props: { y: "+=4" } },
 				{ elem: ".keyShop", props: {display:'none'}},
-				{ elem: "#dungeonChest11,.key,.bigKey", props: { display: 'none',left:0,top:0 } },
+				{ elem: "#dungeonChest11,.key,.bigKey", props: { display: 'none' } },
 			],
 			0: [ //Regular
 				{ elem: "#totalCover", props: { width: 390, height: 810 }, borderless: { width: 390, height: 660 } },
