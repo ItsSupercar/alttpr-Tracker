@@ -1,0 +1,561 @@
+div {
+    box-sizing:border-box;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+}
+
+body {
+    background-color:#000;
+    font-family:Oswald;
+    color:#fff;
+    overflow:hidden;
+}
+
+#totalCover {
+    display:none;
+    position:absolute;
+    left:0px;
+    top:0px;
+    background-color:#a00;
+    opacity:0.3;
+    margin:0;
+}
+
+#trackerBox {
+    position:absolute;
+    left:0px;
+    top:0px;
+    display:none;
+}
+
+.tracker {
+    position:absolute;
+    border: solid 20px transparent;
+}
+
+.trackerTitle {
+	position:absolute;
+	left:12px;
+	top:-16px;
+	width:136px;
+	height:20px;
+	background-image:url('images/title2.png');
+	background-repeat:no-repeat;
+}
+
+#items {
+    left:8px;
+    top:8px;
+    border-image: url(images/borderG.png) 20 round;
+    width:372px;
+    height:312px;
+}
+#items .trackerTitle{ background-position:0px 0px}
+
+#gear {
+    left:384px;
+    top:8px;
+    border-image: url(images/borderR.png) 20 round;
+    width:176px;
+    height:312px;
+}
+#gear .trackerTitle{ background-position:0px -20px}
+
+#dungeons {
+    left:8px;
+    top:324px;
+    border-image: url(images/borderY.png) 20 round;
+    width:552px;
+    height:208px;
+}
+#dungeons .trackerTitle{ background-position:0px -40px}
+
+.icon {
+    position:absolute;
+    left:0px;
+    top:0px;
+    background-image:url(images/grid1.png);
+    cursor:pointer;
+    margin:8px 8px;
+}
+
+#bow {left:0px;top:0px;width:60px; height:64px; }
+#bow.state0 { background-position:0px -64px}
+#bow.state1 { background-position:0px 0px}
+#bow.state2 { background-position:0px -384px}
+#bow.state3 { background-position:0px -448px}
+
+#boomerang { left:60px; top:0px; width:60px; height:64px;}
+#boomerang.state0 { background-position:-60px -64px}
+#boomerang.state1 { background-position:-60px 0px}
+#boomerang.state2 { background-position:-60px -512px}
+#boomerang.state3 { background-position:-384px -320px}
+
+#hookshot { left:120px; top:0px; width: 64px; height:64px;}
+#hookshot.state0 { background-position:-120px -64px }
+#hookshot.state1 { background-position:-120px 0px }
+
+#bomb { left:184px; top:0px; width: 68px; height:64px; }
+#bomb.state0 {  background-position:-184px -64px }
+#bomb.state1 { background-position:-184px 0px }
+
+#mushroom {left:184px; top:0px; width:68px; height:64px; display:none;}
+#mushroom.state0 {background-position:-196px -640px}
+#mushroom.state1 {background-position:-128px -640px }
+
+#powder {left:252px; top:0px; width:68px; height:64px; display:none;}
+#powder.state0 {background-position:-252px -64px}
+#powder.state1 {background-position:-252px 0px }
+
+#mushroompowder {left:252px; top:0px; width:68px; height:64px; }
+#mushroompowder.state0 {background-position:-448px -0px}
+#mushroompowder.state1 {background-position:-448px -64px }
+#mushroompowder.state2 {background-position:-448px -128px }
+#mushroompowder.state3 {background-position:-448px -192px }
+
+
+#firerod { left:0px; top:64px; width:60px; height:64px; }
+#firerod.state0 { background-position:0px -192px }
+#firerod.state1 { background-position:0px -128px }
+#icerod { left:60px; top:64px; width:56px; height:64px; }
+#icerod.state0 { background-position:-60px -192px }
+#icerod.state1 { background-position:-60px -128px }
+#bombos { left:116px; top:64px; width:68px; height:64px;}
+#bombos.state0 { background-position:-116px -192px }
+#bombos.state1 { background-position:-116px -128px }
+#ether { left:184px; top:64px; width:68px; height:64px; }
+#ether.state0 { background-position:-184px -192px }
+#ether.state1 { background-position:-184px -128px }
+#quake { left:252px; top:64px; width:68px; height:64px; }
+#quake.state0 { background-position:-252px -192px }
+#quake.state1 { background-position:-252px -128px }
+
+#lamp {left:0px; top:128px; width:60px; height:64px;}
+#lamp.state0 {background-position:0px -320px}
+#lamp.state1 {background-position:0px -256px}
+#hammer {left:60px; top:128px; width:60px; height:64px; }
+#hammer.state0 {background-position:-60px -320px}
+#hammer.state1 {background-position:-60px -256px}
+#flute {left:124px; top:128px; width:64px; height:64px; display:none;}
+#flute.state0 {background-position:-120px -320px}
+#flute.state1 {background-position:-120px -256px}
+#shovel {left:188px; top:128px; width:64px; height:64px; display:none;}
+#shovel.state0 {background-position:-64px -640px}
+#shovel.state1 {background-position:0px -640px }
+#shovelflute {left:120px; top:128px; width:64px; height:64px;}
+#shovelflute.state0 {background-position:-448px -256px}
+#shovelflute.state1 {background-position:-448px -320px }
+#shovelflute.state2 {background-position:-448px -384px }
+#shovelflute.state3 {background-position:-448px -448px }
+#net {left:184px; top:128px; width:68px; height:64px;}
+#net.state0 {background-position:-184px -320px}
+#net.state1 {background-position:-184px -256px}
+#book {left:252px; top:128px; width:68px; height:64px;}
+#book.state0 {background-position:-252px -320px}
+#book.state1 {background-position:-252px -256px}
+
+#bottle {left:0px; top:192px; width:60px; height:64px; }
+#bottle.state0 { background-position:0px -512px}
+#bottle.state1 { background-position:0px -576px  }
+#bottle.state2 { background-position:-60px -576px }
+#bottle.state3 { background-position:-120px -576px }
+#bottle.state4 { background-position:-180px -576px }
+#somaria { left:60px; top:192px; width:60px; height:64px; }
+#somaria.state0 { background-position:-60px -448px}
+#somaria.state1 { background-position:-60px -384px}
+#byrna { left:120px; top:192px; width:64px; height:64px; }
+#byrna.state0 { background-position:-120px -448px}
+#byrna.state1 { background-position:-120px -384px}
+#cape { left:184px; top:192px; width:68px; height:64px; }
+#cape.state0 { background-position:-184px -448px}
+#cape.state1 { background-position:-184px -384px}
+#mirror { left:252px; top:192px; width:68px; height:64px; }
+#mirror.state0 { background-position:-252px -448px}
+#mirror.state1 { background-position:-252px -384px}
+
+#sword { left:0px; top:0px; width:64px; height:64px; }
+#sword.state0 { background-position:-120px -512px }
+#sword.state1 { background-position:-184px -512px }
+#sword.state2 { background-position:-248px -512px }
+#sword.state3 { background-position:-312px -512px }
+#sword.state4 { background-position:-376px -512px }
+#shield { left:64px; top:0px; width:64px; height:64px; }
+#shield.state0 { background-position:-320px -64px}
+#shield.state1 { background-position:-320px 0px}
+#shield.state2 { background-position:-320px -128px}
+#shield.state3 { background-position:-320px -192px }
+
+#mail { opacity:1; left:0px; top:64px; width:64px; height:64px; }
+#mail.state0 { background-position:-240px -576px}
+#mail.state1 { background-position:-304px -576px }
+#mail.state2 { background-position:-368px -576px }
+#pearl { left:64px; top:64px; width:64px; height:64px; }
+#pearl.state0 { background-position:-384px -64px}
+#pearl.state1 { background-position:-384px 0px}
+
+#boots { left:0px; top:128px; width:64px; height:64px; }
+#boots.state0 { background-position:-320px -320px}
+#boots.state1 { background-position:-320px -256px}
+#glove { left:64px; top:128px; width:64px; height:64px;}
+#glove.state0 { background-position:-384px -128px}
+#glove.state1 { background-position:-384px -192px}
+#glove.state2 { background-position:-384px -256px}
+
+#flippers { left:0px; top:192px; width:64px; height:64px; }
+#flippers.state0 { background-position:-320px -448px }
+#flippers.state1 { background-position:-320px -384px }
+#halfmagic { left:64px; top:192px; width:64px; height:64px; }
+#halfmagic.state0 { background-position:-384px -448px  }
+#halfmagic.state1 { background-position:-384px -384px  }
+
+
+
+#boss0 { width:72px; height:72px;}
+#boss0.state0 { background-position:4px -776px}
+#boss0.state1 { background-position:4px -704px}
+#prize0 { left:36px; top:0px; }
+
+#boss1 { width:68px; height:72px; left:4px}
+#boss1.state0 { background-position:-68px -776px}
+#boss1.state1 { background-position:-68px -704px}
+#prize1 { left:36px; top:0px; }
+
+#boss2 { width:68px; height:72px; left:4px}
+#boss2.state0 { background-position:-136px -776px}
+#boss2.state1 { background-position:-136px -704px}
+#prize2 { left:36px; top:0px; }
+
+#boss3 { width:72px; height:72px;}
+#boss3.state0 { background-position:0px -920px}
+#boss3.state1 { background-position:0px -848px}
+#prize3 { left:36px; top:0px; }
+
+#boss4 { width:64px; height:72px; left:4px}
+#boss4.state0 { background-position:-72px -920px}
+#boss4.state1 { background-position:-72px -848px}
+#prize4 { left:36px; top:0px; }
+
+#boss5 { width:72px; height:72px;}
+#boss5.state0 { background-position:-136px -920px}
+#boss5.state1 { background-position:-136px -848px}
+#prize5 { left:36px; top:0px; }
+
+#boss6 { width:72px; height:72px;}
+#boss6.state0 { background-position:-204px -920px}
+#boss6.state1 { background-position:-204px -848px}
+#prize6 { left:36px; top:0px; }
+
+#boss7 { width:72px; height:72px;}
+#boss7.state0 { background-position:-272px -920px}
+#boss7.state1 { background-position:-272px -848px}
+#prize7 { left:36px; top:0px; }
+
+#boss8 { width:68px; height:72px;}
+#boss8.state0 { background-position:-340px -920px}
+#boss8.state1 { background-position:-340px -848px}
+#prize8 { left:36px; top:0px; }
+#medal8 { left:36px; top:36px; }
+
+#boss9 { width:72px; height:72px;}
+#boss9.state0 { background-position:-408px -920px}
+#boss9.state1 { background-position:-408px -848px}
+#prize9 { left:36px; top:0px; }
+#medal9 { left:36px; top:36px; }
+
+#boss10 { width:72px; height:72px;}
+#boss10.state0 { background-position:-268px -776px}
+#boss10.state1 { background-position:-268px -704px}
+
+#boss11 { width:64px; height:72px; left:4px;}
+#boss11.state0 { background-position:-204px -776px}
+#boss11.state1 { background-position:-204px -704px}
+
+.prize {	width: 40px; height: 40px;}
+.prize.state0 { background-position:-340px -640px;}
+.prize.state1 { background-position:-340px -720px;}
+.prize.state2 { background-position:-340px -680px;}
+.prize.state3 { background-position:-340px -760px;}
+.prize.state4 { background-position:-340px -800px;}
+
+.bigPrize {left:4px;	top:0px;	width:64px;	height:72px;}
+.bigPrize.state0{background-position:0px -1064px}
+.bigPrize.state1{background-position:-128px -1064px}
+.bigPrize.state2{background-position:-64px -1064px}
+.bigPrize.state3{background-position:-192px -1064px}
+.bigPrize.state4{background-position:-256px -1064px}
+.bigPrize.state0.complete{background-position:0px -992px}
+.bigPrize.state1.complete{background-position:-128px -992px}
+.bigPrize.state2.complete{background-position:-64px -992px}
+.bigPrize.state3.complete{background-position:-192px -992px}
+.bigPrize.state4.complete{background-position:-256px -992px}
+
+.abbr{left:36px;top:4px;width:48px;height:32px;}
+#abbr0 {background-position:-320px -992px}
+#abbr1 {background-position:-368px -992px}
+#abbr2 {background-position:-416px -992px}
+#abbr3 {background-position:-464px -992px}
+#abbr4 {background-position:-320px -1024px}
+#abbr5 {background-position:-368px -1024px}
+#abbr6 {background-position:-416px -1024px}
+#abbr7 {background-position:-464px -1024px}
+#abbr8 {background-position:-320px -1056px}
+#abbr9 {background-position:-368px -1056px}
+
+.medal {width:40px; height:40px}
+.medal.state0 {  background-position: -380px -640px; }
+.medal.state1 {  background-position: -380px -680px; }
+.medal.state2 {  background-position: -380px -720px; }
+.medal.state3 {  background-position: -380px -760px; }
+
+.key {width:44px;height:36px;top:72px}
+.key.state0 {background-position:-432px -584px}
+.key.state1 {background-position:-432px -620px}
+.key.state2 {background-position:-432px -656px}
+.key.state3 {background-position:-432px -692px}
+.key.state4 {background-position:-432px -728px}
+.key.state5 {background-position:-432px -764px}
+.key.state6 {background-position:-432px -800px}
+.key.state7 {background-position:-476px -512px}
+.key.state8 {background-position:-476px -548px}
+.key.state9 {background-position:-476px -584px}
+.key.state10 {background-position:-476px -620px;width:68px;margin-left:-4px}
+.key.state11 {background-position:-476px -656px;width:68px;margin-left:-4px}
+.key.state12 {background-position:-476px -692px;width:68px;margin-left:-4px}
+.key.state13 {background-position:-476px -728px;width:68px;margin-left:-4px}
+.key.state14 {background-position:-476px -764px;width:68px;margin-left:-4px}
+.key.state15 {background-position:-476px -800px;width:68px;margin-left:-4px}
+.key.state16 {background-position:-476px -836px;width:68px;margin-left:-4px}
+.key.state17 {background-position:-476px -872px;width:68px;margin-left:-4px}
+.key.state18 {background-position:-476px -908px;width:68px;margin-left:-4px}
+.key.state19 {background-position:-476px -944px;width:68px;margin-left:-4px}
+.key.state20 {background-position:-516px  0px;width:68px;margin-left:-4px}
+.key.state21 {background-position:-516px -36px;width:68px;margin-left:-4px}
+.key.state22 {background-position:-516px -72px;width:68px;margin-left:-4px}
+.key.state23 {background-position:-516px -108px;width:68px;margin-left:-4px}
+.key.state24 {background-position:-516px -144px;width:68px;margin-left:-4px}
+.key.state25 {background-position:-516px -180px;width:68px;margin-left:-4px}
+.key.state26 {background-position:-516px -216px;width:68px;margin-left:-4px}
+.key.state27 {background-position:-516px -252px;width:68px;margin-left:-4px}
+.key.state28 {background-position:-516px -288px;width:68px;margin-left:-4px}
+.key.state29 {background-position:-516px -324px;width:68px;margin-left:-4px}
+.key.infinite {background-position:-516px -360px;width:68px;margin-left:-4px}
+#key11 { left:36px }
+#key12 { left:-4px }
+
+.bigKey {width:36px;height:36px;top:72px;left:36px}
+.bigKey.state0 {background-position:-300px -640px}
+.bigKey.state1 {background-position:-264px -640px}
+#bigKey0 { left:18px }
+
+#mapBox {
+    position:absolute;
+    right:0px;
+    bottom:0px;
+}
+
+.map {
+    position:absolute;
+    background-image:url(images/map.png);
+    background-size: 650px 1300px;
+    width:650px;
+    height:650px;
+	background-color:rgba(0, 0, 0, 0.1);
+	background-blend-mode:multiply;
+}
+
+#mapLW {background-position:0px    0px;}
+#mapDW {background-position:0px -650px;}
+
+.chest {
+	width: 32;
+	height: 32;
+	margin-left: -16px;
+	margin-top: -16px;
+	position: absolute;
+	background-size: 100% 100%;
+	cursor:pointer;
+	border-radius:50%;
+    border: solid 3px #000;
+    background-color:#7f7f7f;
+
+    color:#000;
+ 	text-align:center;	
+	font-family:Oswald,Sans-Serif;
+	font-weight: 600;
+	font-size:19;
+	padding:1px 0px 0px 0px;
+    line-height:23px;
+}
+
+.chest:hover {
+    border-color:#fff;
+}
+
+.dungeonChest {
+    margin-left:4px;
+	margin-top:4px;
+	
+}
+
+.chestPip {
+	position:absolute;
+	width:8px;
+	height: 8px;
+	margin-left:16px;
+	margin-top:16px;
+	border-radius:4px;
+	border: solid 1px #000;
+	z-index:100;
+}
+
+.dungeon {
+	width: 48px;
+	height: 48px;
+	margin-left: -24px;
+	margin-top: -24px;
+	position: absolute;
+	background-repeat: no-repeat;
+	z-index: 2;
+	cursor:pointer;
+	border: solid 3px #000;
+	border-radius:50%;
+    background-color:#7f7f7f;
+    background-image:url(images/prizes1.png);
+    background-size:48px 240px;
+	background-position:-2px -2px;
+	color:#000;
+	text-align:center;
+	font-weight:800;
+	font-size:20px;
+	line-height:41px;
+}
+
+.dungeon.state0 { background-position:-2px -2px; }
+.dungeon.state2 { background-position:-2px -50px; }
+.dungeon.state1 { background-position:-2px -98px; }
+.dungeon.state3 { background-position:-2px -146px; }
+.dungeon.state4 { background-position:-2px -194px; }
+
+.dungeon:hover {
+    border-color:#fff;
+}
+
+.unavail { background-color: #cb0b26; }
+.avail { background-color: #22ee3d; }
+.dark { background-color: #016f67; }
+.maybe { background-color: #e4f400; }
+.visible { background-color: #e26d00; }
+.opened { background-color:#7f7f7f; color:#7f7f7f; }
+
+
+.keyShop {
+	position:absolute;
+	background-color:#222;
+	width:20px;
+	height:20px;
+	border:solid 1px #000;
+	border-radius:4px;
+	transform:scaleX(-1) rotate(135deg);
+	cursor:pointer;
+	color:#555;
+	line-height:11px;
+	font-size:10px;
+	text-align:center;
+}
+
+.keyShop.unavail {
+	background-color: #cb0b26;
+	color:#cb0b26;
+}
+
+.keyShop.unavail .keyCirc {
+	background-color: #cb0b26;
+	border-color:#cb0b26;
+}
+
+.keyShop.dark {
+	background-color: #016f67;
+	color:#1fa874;
+}
+
+.keyShop.dark .keyCirc {
+	background-color: #016f67;
+	border-color:#1fa874;
+}
+
+.keyShop.active {
+	background-color: #775700;
+	color:#e0a800
+}
+
+.keyCirc{
+	position:absolute;
+	left:6px;
+	bottom:2px;
+	width:6px;
+	height:6px;
+	background-color:#222;
+	border:solid 1px #555;
+	border-radius:100%
+}
+
+.keyShop.active .keyCirc {
+	background-color: #775700;
+	border-color:#e0a800
+}
+
+.keyShop:hover {
+	border-color:#fff;
+}
+
+input {cursor:pointer;}
+
+
+#settingsTab {
+	position:absolute;
+	bottom:-495px;
+	left:0px;
+	width:530px;
+	height:530px;
+	background-color:rgba(17,17,17,0);
+	border-radius:0px 10px 0px 0px;
+	color:#fff;
+	font-family:Oswald,sans-serif;
+	font-size:17px;
+	z-index:99998;
+}
+
+#tabIcon {
+	position:absolute;
+	left:5px;
+	top:0px;
+	color:#fff;
+	width:30px;
+	height: 30px;
+	text-align:center;
+	line-height:30px;
+	font-size:18px;
+	cursor:pointer;
+	Z-INDEX:99999;
+	background-color:#111;
+	border-radius:25%;
+}
+
+.selection {
+	position:absolute;
+	height: 30px;
+	line-height:20px;
+	text-align:left;
+}
+
+#caption {
+	position:absolute;
+	left:80px;
+	top:4px;
+	width:500px;
+	color: #fff;
+	font-size: 17px;
+	text-align: left;
+	overflow:hidden;
+}

@@ -1,0 +1,310 @@
+<html>
+
+<head>
+	<title>LTTP Randomizer Tracker</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/utils/Draggable.min.js"></script>
+	<script src="https://code.createjs.com/soundjs-0.6.1.min.js"></script>
+	<script src="https://code.createjs.com/preloadjs-0.6.1.min.js"></script>
+
+
+	<script src="logic.js"></script>
+	<script src="layout.js"></script>
+	<script src="trackables.js"></script>
+</head>
+
+<body>
+	<div id="totalCover"></div>
+
+	<div id="trackerBox">
+		<div class="tracker" id="items">
+			<div class="trackerTitle"></div>
+
+			<div class="icon state0" id="bow" title="Bow" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="boomerang" title="Boomerang" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="hookshot" title="Hookshot" onclick="toggle.icon(this)"></div>
+			<div class="icon state1 showCombined" id="bomb" title="Bombs" onclick="toggle.icon(this)"></div>
+			<div class="icon state0 hideCombined" id="mushroom" title="Mushroom" onclick="toggle.icon(this)"></div>
+			<div class="icon state0 hideCombined" id="powder" title="Powder" onclick="toggle.icon(this)"></div>
+			<div class="icon state0 showCombined" id="mushroompowder" title="Mushroom & Powder" onclick="toggle.icon(this)"></div>
+
+			<div class="icon state0" id="firerod" title="Fire Rod" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="icerod" title="Ice Rod" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="bombos" title="Bombos Medallion" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="ether" title="Ether Medallion" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="quake" title="Quake Medallion" onclick="toggle.icon(this)"></div>
+
+			<div class="icon state0" id="lamp" title="Lamp" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="hammer" title="Hammer" onclick="toggle.icon(this)"></div>
+			<div class="icon state0 hideCombined" id="flute" title="Flute" onclick="toggle.icon(this)"></div>
+			<div class="icon state0 hideCombined" id="shovel" title="Shovel" onclick="toggle.icon(this)"></div>
+			<div class="icon state0 showCombined" id="shovelflute" title="Shovel & Flute" onclick="toggle.icon(this)"></div>
+			<div class="icon state0 showCombined" id="net" title="Bug Net" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="book" title="Book of Mudora" onclick="toggle.icon(this)"></div>
+
+			<div class="icon state0" id="bottle" title="Bottles" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="somaria" title="Cane of Somaria" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="byrna" title="Cane of Byrna" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="cape" title="Cape" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="mirror" title="Mirror" onclick="toggle.icon(this)"></div>
+		</div>
+		<div class="tracker" id="gear">
+			<div class="trackerTitle"></div>
+
+			<div class="icon state0" id="sword" title="Sword" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="shield" title="Shield" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="mail" title="Mail" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="pearl" title="Moon Pearl" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="boots" title="Pegasus Boots" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="glove" title="Power Glove & Titan's Mitt" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="flippers" title="Flippers" onclick="toggle.icon(this)"></div>
+			<div class="icon state0" id="halfmagic" title="Half Magic Upgrade" onclick="toggle.icon(this)"></div>
+		</div>
+		<div class="tracker" id="dungeons">
+			<div class="trackerTitle"></div>
+
+			<div class="icon stuff0 state0 dispHeads" id="boss0" title="Armos Knights" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff1 state0 dispHeads" id="boss1" title="Lanmolas" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff2 state0 dispHeads" id="boss2" title="Moldorm" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff3 state0 dispHeads" id="boss3" title="Helmasaur" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff4 state0 dispHeads" id="boss4" title="Arrghus" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff5 state0 dispHeads" id="boss5" title="Mothula" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff6 state0 dispHeads" id="boss6" title="Blind" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff7 state0 dispHeads" id="boss7" title="Kholdstare" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff8 state0 dispHeads" id="boss8" title="Vitreous" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff9 state0 dispHeads" id="boss9" title="Trinexx" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff10 state0" id="boss10" title="Ganon's Tower" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff11 state0" id="boss11" title="Agahnim" onclick="toggle.icon(this)"></div>
+
+			<div class="icon stuff0 prize state0 dispHeads" id="prize0" title="Eastern Palace Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff1 prize state0 dispHeads" id="prize1" title="Desert Palace Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff2 prize state0 dispHeads" id="prize2" title="Tower of Hera Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff3 prize state0 dispHeads" id="prize3" title="Palace of Darkness Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff4 prize state0 dispHeads" id="prize4" title="Swamp Palace Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff5 prize state0 dispHeads" id="prize5" title="Skull Woods Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff6 prize state0 dispHeads" id="prize6" title="Thieves Town Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff7 prize state0 dispHeads" id="prize7" title="Ice Palace Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff8 prize state0 dispHeads" id="prize8" title="Misery Mire Prize" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff9 prize state0 dispHeads" id="prize9" title="Turtle Rock Prize" onclick="toggle.icon(this)"></div>
+
+			<div class="icon stuff0 state0 bigPrize dispPrizes" id="bigPrize0" title="Eastern Palace Prize" onclick="toggle.icon(prize0)"></div>
+			<div class="icon stuff1 state0 bigPrize dispPrizes" id="bigPrize1" title="Desert Palace Prize" onclick="toggle.icon(prize1)"></div>
+			<div class="icon stuff2 state0 bigPrize dispPrizes" id="bigPrize2" title="Tower of Hera Prize" onclick="toggle.icon(prize2)"></div>
+			<div class="icon stuff3 state0 bigPrize dispPrizes" id="bigPrize3" title="Palace of Darkness Prize" onclick="toggle.icon(prize3)"></div>
+			<div class="icon stuff4 state0 bigPrize dispPrizes" id="bigPrize4" title="Swamp Palace Prize" onclick="toggle.icon(prize4)"></div>
+			<div class="icon stuff5 state0 bigPrize dispPrizes" id="bigPrize5" title="Skull Woods Prize" onclick="toggle.icon(prize5)"></div>
+			<div class="icon stuff6 state0 bigPrize dispPrizes" id="bigPrize6" title="Thieves Town Prize" onclick="toggle.icon(prize6)"></div>
+			<div class="icon stuff7 state0 bigPrize dispPrizes" id="bigPrize7" title="Ice Palace Prize" onclick="toggle.icon(prize7)"></div>
+			<div class="icon stuff8 state0 bigPrize dispPrizes" id="bigPrize8" title="Misery Mire Prize" onclick="toggle.icon(prize8)"></div>
+			<div class="icon stuff9 state0 bigPrize dispPrizes" id="bigPrize9" title="Turtle Rock Prize" onclick="toggle.icon(prize9)"></div>
+
+			<div class="icon stuff0 abbr dispPrizes" id="abbr0" title="Eastern Palace" onclick="toggle.boss(0)"></div>
+			<div class="icon stuff1 abbr dispPrizes" id="abbr1" title="Desert Palace" onclick="toggle.boss(1)"></div>
+			<div class="icon stuff2 abbr dispPrizes" id="abbr2" title="Tower of Hera" onclick="toggle.boss(2)"></div>
+			<div class="icon stuff3 abbr dispPrizes" id="abbr3" title="Palace of Darkness" onclick="toggle.boss(3)"></div>
+			<div class="icon stuff4 abbr dispPrizes" id="abbr4" title="Swamp Palace" onclick="toggle.boss(4)"></div>
+			<div class="icon stuff5 abbr dispPrizes" id="abbr5" title="Skull Woods" onclick="toggle.boss(5)"></div>
+			<div class="icon stuff6 abbr dispPrizes" id="abbr6" title="Thieves Town" onclick="toggle.boss(6)"></div>
+			<div class="icon stuff7 abbr dispPrizes" id="abbr7" title="Ice Palace" onclick="toggle.boss(7)"></div>
+			<div class="icon stuff8 abbr dispPrizes" id="abbr8" title="Misery Mire" onclick="toggle.boss(8)"></div>
+			<div class="icon stuff9 abbr dispPrizes" id="abbr9" title="Turtle Rock" onclick="toggle.boss(9)"></div>
+
+			<div class="icon stuff8 medal state0" id="medal8" title="Misery Mire Entry Medallion" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff9 medal state0" id="medal9" title="Turtle Rock Entry Medallion" onclick="toggle.icon(this)"></div>
+
+			<div class="icon stuff1 key state0" id="key1" title="Desert Palace Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff2 key state0" id="key2" title="Tower of Hera Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff3 key state0" id="key3" title="Palace of Darkness Keys" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff4 key state0" id="key4" title="Swamp Palace Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff5 key state0" id="key5" title="Skull Woods Keys" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff6 key state0" id="key6" title="Thieves Town Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff7 key state0" id="key7" title="Ice Palace Keys" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff8 key state0" id="key8" title="Misery Mire Keys" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff9 key state0" id="key9" title="Turtle Rock Keys" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff10 key state0" id="key10" title="Ganon's Tower Keys" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff11 key state0" id="key11" title="Castle Tower Keys" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff11 key state0" id="key12" title="Hyrule Castle Key" onclick="toggle.icon(this)"></div>
+
+			<div class="icon stuff0 bigKey state0" id="bigKey0" title="Eastern Palace Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff1 bigKey state0" id="bigKey1" title="Desert Palace Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff2 bigKey state0" id="bigKey2" title="Tower of Hera Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff3 bigKey state0" id="bigKey3" title="Palace of Darkness Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff4 bigKey state0" id="bigKey4" title="Swamp Palace Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff5 bigKey state0" id="bigKey5" title="Skull Woods Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff6 bigKey state0" id="bigKey6" title="Thieves Town Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff7 bigKey state0" id="bigKey7" title="Ice Palace Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff8 bigKey state0" id="bigKey8" title="Misery Mire Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff9 bigKey state0" id="bigKey9" title="Turtle Rock Big Key" onclick="toggle.icon(this)"></div>
+			<div class="icon stuff10 bigKey state0" id="bigKey10" title="Ganon's Tower Big Key" onclick="toggle.icon(this)"></div>
+
+			<div class="icon key state0" id="keyAny" title="General-Use Key" onclick="toggle.icon(this)"></div>
+		</div>
+	</div>
+	</div>
+
+	<div id="mapBox">
+		<div class="map" id="mapLW"></div>
+		<div class="map" id="mapDW"></div>
+	</div>
+
+	<div id="settingsTab">
+		<div id="tabIcon" onclick="settings.toggle()">&#9776;</div>
+		<div id="tabIcon" style="left:40px" onclick="popout()"> &#8663;</div>
+		<div id="caption"></div>
+
+		<div class="selection" style="top: 40px;left:50px;">
+			<b>&nbsp;MODE</b>
+			<br/>
+			<input title="No Variation" class="radio regMode" type="radio" name="keyMode" value="0" onclick="settings.apply(true)" checked>
+			<span class="radio regMode"> Regular</span>
+			<br/>
+			<input title="Key-Sanity Mode" class="radio keysanity" type="radio" name="keyMode" value="1" onclick="settings.apply(true)">
+			<span class="radio keysanity"> Key-Sanity</span>
+			<br/>
+			<input title="Retro Mode" class="radio retro" type="radio" name="keyMode" value="2" onclick="settings.apply(true)">
+			<span class="radio retro"> Retro</span>
+		</div>
+
+		<div class="selection" style="top:40px;left:170px;">
+			<b>&nbsp;LAYOUT</b>
+			<br/>
+			<input title="A Square-ish Layout" class="radio Square" type="radio" name="layout" value="0" onclick="settings.apply(false)"
+			 checked>
+			<span class="radio Square"> Square</span>
+			<br/>
+			<input title="Dungeon Icons Arranged by Location" class="radio Geo" type="radio" name="layout" value="1" onclick="settings.apply(false)">
+			<span class="radio Geo"> Geographic</span>
+			<br/>
+			<input title="A Tall, Narrow Layout" class="radio Tall" type="radio" name="layout" value="2" onclick="settings.apply(false)">
+			<span class="radio Tall"> Tall</span>
+			<br/>
+			<input title="A Short, Wide Layout" class="radio Wide" type="radio" name="layout" value="3" onclick="settings.apply(false)">
+			<span class="radio Wide"> Wide</span>
+		</div>
+
+		<div class="selection" style="top: 40px;left:290px">
+			<b>&nbsp;BORDERS</b>
+			<br/>
+			<input title="No Borders (most compact)" class="radio noBorder" type="radio" name="border" value="0" onclick="settings.apply(false)">
+			<span class="radio noBorder"> Off</span>
+			<br/>
+			<input title="Simple White Borders" class="radio simpBorder" type="radio" name="border" value="1" onclick="settings.apply(false)">
+			<span class="radio simpBorder"> Simple</span>
+			<br/>
+			<input title="Inventory-Style Borders" class="radio invBorder" type="radio" name="border" value="2" onclick="settings.apply(false)"
+			 checked>
+			<span class="radio retroBorder"> Inventory</span>
+			<br/>
+			<input title="Textbox-Style Borders" class="radio textBorder" type="radio" name="border" value="3" onclick="settings.apply(false)">
+			<span class="radio textBorder"> Textbox</span>
+			<br/>
+			<input title="Thinner Pixel Borders" class="radio thinBorder" type="radio" name="border" value="4" onclick="settings.apply(false)">
+			<span class="radio thinBorder"> Thin</span>
+		</div>
+
+		<div class="selection" style="top: 40px;left:410px">
+			<b>&nbsp;COMBINE
+				<br/>&nbsp;FETCH ITEMS</b>
+			<br/>
+			<input title="Combine Mushroom/Powder & Shovel/Flute" class="radio combine" type="radio" name="combineFetch" value="0" onclick="settings.apply(false)"
+			 checked>
+			<span class="radio combine"> Yes</span>
+			<br/>
+			<input title="Separate Mushroom/Powder & Shovel/Flute" class="radio dontCombine" type="radio" name="combineFetch" value="1"
+			 onclick="settings.apply(false)">
+			<span class="radio dontCombine"> No</span>
+			<br/>
+		</div>
+
+
+		<div class="selection" style="top:150px;left:50px">
+			<b>&nbsp;START</b>
+			<br/>
+			<input title="Standard Mode" class="radio icon0" type="radio" name="openMode" value="0" onclick="settings.apply(false)" checked>
+			<span class="radio icon0"> Standard</span>
+			<br/>
+			<input title="Open Mode" class="radio icon1" type="radio" name="openMode" value="1" onclick="settings.apply(false)">
+			<span class="radio icon1"> Open</span>
+		</div>
+
+		<div class="selection" style="top: 150px;left:170px">
+			<b>&nbsp;MAPS</b>
+			<br/>
+			<input title="No Map" class="radio mapOff" type="radio" name="mapAlign" value="0" onclick="settings.apply(false)">
+			<span class="radio mapOff"> Off</span>
+			<br/>
+			<input title="Vertical Maps" class="radio mapV" type="radio" name="mapAlign" value="1" onclick="settings.apply(false)" checked>
+			<span class="radio mapV"> Vertical</span>
+			<br/>
+			<input title="Horizontal Maps" class="radio mapH" type="radio" name="mapAlign" value="2" onclick="settings.apply(false)">
+			<span class="radio mapH"> Horizontal</span>
+		</div>
+
+		<div class="selection" style="top: 170px;left:290px">
+			<b>&nbsp;DUNGEONS</b>
+			<br/>
+			<input title="Boss Head Icons (click ? to change prize, click head to mark complete)" class="radio dungeonDispHeads" type="radio"
+			 name="dungeonDisp" value="0" onclick="settings.apply(false)" checked>
+			<span class="radio dungeonDispHeads"> Boss Heads</span>
+			<br/>
+			<input title="Prize Icons (click ? to change prize, click initials to mark complete)" class="radio dungeonDispPrizes" type="radio"
+			 name="dungeonDisp" value="1" onclick="settings.apply(false)">
+			<span class="radio dungeonDispPrizes"> Prizes</span>
+		</div>
+
+		<div class="selection" style="top:150px;left:410px">
+			<b>&nbsp;ICONS</b>
+			<br/>
+			<input title="In-World Style Icons" class="radio icon0" type="radio" name="iconSet" value="0" onclick="settings.apply(false)">
+			<span class="radio icon0"> In-World</span>
+			<br/>
+			<input title="Inventory Screen Style Icons" class="radio icon1" type="radio" name="iconSet" value="1" onclick="settings.apply(false)"
+			 checked>
+			<span class="radio icon1"> Inventory</span>
+		</div>
+
+	</div>
+
+	<script>
+
+		$(window).load(function () {
+			layout.sizeMap($("input[name='mapAlign']:checked").val()); //arranges the maps to best fit on screen
+			map.populate();											//adds dungeons and chest icons to the maps
+			settings.applyCookie();									//applies saved user settings, or defaults if no cookie found
+		});
+
+		$(window).resize(function () {
+			layout.sizeMap($("input[name='mapAlign']:checked").val());  //re-arranges the maps if window size changes
+		});
+
+
+		$(".icon,input").hover(
+			function () {
+				$(this).attr("tooltip-data", $(this).attr("title"));
+				$(this).removeAttr("title");
+				$("#caption").html($(this).attr("tooltip-data"));
+			}, function () {
+				$(this).attr("title", $(this).attr("tooltip-data"));
+				$(this).removeAttr("tooltip-data");
+				$("#caption").html("");
+			}
+		);
+
+		$('.icon').mousedown(function (event) {					//adds listener for middle-click on icons
+			if (event.which == 2) {
+				toggle.icon(this, true);
+			};
+		});
+
+		$('body').mousedown(function (e) { if (e.button == 1) return false });	//turns off middle-click scroll so the above functionality can work
+
+	</script>
+
+</body>
+
+</html>
