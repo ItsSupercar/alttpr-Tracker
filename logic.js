@@ -181,7 +181,7 @@ logic = {
                 1 :
                 settings.keyMode == 1 ?
                     items.key12.val ? lampTest : 0 :
-                    settings.keyMode == 2 ?
+                    settings.keyMode == 2 && items.keyShopFound.val == 0 ?
                         maxKey >= 1 ?
                             minKey >= 1 ? lampTest : 3 :
                             0 :
@@ -1662,12 +1662,27 @@ logic = {
         7: function () { return logic.darkWorldNW() ? 1 : 0; },  //DW Lumberjack
         8: function () { return logic.darkWorldEast() ? 1 : 0; },  //DW Potion Shop
     },
-    countKeyShops: function () {
+    keyShopCheck: function () { //function for checking and applying the status of key shop access in Retro mode
         var count = 0;
+        var found = false;
+
         $.each(logic.keyShops, function (id, test) {
-            if (test()) { count++ }
+
+            if (test()) { count++ } //if the keyShop is accessible, add it to the count
+
+            //toggle accessibility status on map
+            $("#keyShop" + id).toggleClass("unavail", test() == 0);
+            $("#keyShop" + id).toggleClass("dark", test() == 2);
+
+            if (keyShops[id].active == true) { found = true } //check if any shop has been clicked
         });
-        return count;
+
+        if (count >= 5) { found == true; } //if more than 5 shops are accessible, one must be a key shop
+
+        items.keyShopFound.val = found ? 1 : 0;
+        $("#keyAny").toggleClass("infinite", found);
+
+        return found;
     },
     //function for colouring map elements by their logical state
     colour: function (elem, state) {
@@ -1687,6 +1702,7 @@ logic = {
     apply: function () {
 
         logic.setPrizes();
+        if (settings.keyMode == 2) { logic.keyShopCheck(); }
 
         $.each(logic.chests, function (id, test) {
 
@@ -1697,19 +1713,7 @@ logic = {
         });
 
 
-        keyShopCount = 0;
-        keyShopFound = false;
-        $.each(logic.keyShops, function (id, test) {
-            if (test() == 1) { keyShopCount++ }
-            $("#keyShop" + id).toggleClass("unavail", test() == 0);
-            $("#keyShop" + id).toggleClass("dark", test() == 2);
-            if (keyShops[id].active) { keyShopFound = true; }
-        });
-        if (keyShopCount >= 5) {
-            keyShopFound = true;
-        }
-        items.keyShopFound.val = keyShopFound ? 1 : 0;
-        $("#keyAny").toggleClass("infinite", keyShopFound);
+
 
 
 
