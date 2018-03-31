@@ -11,7 +11,6 @@ BASIC USE
 
 When you find an item, click its icon in the tracker. When you check an item location out in the world, click it on the map. When you find an item inside a dungeon, click on that dungeon's item counter on the map.
 Some items, like the bow, cycle through multiple states. Make sure to click the icon until it matches what you have!
-When you check a chest somewhere in the world, click its icon on the map to mark it as collected.
 Click the white question mark on each dungeon icon to mark what that dungeon's prize is
 (Unknown -> Pendant -> Green Pendant -> Crystal -> Red Crystal).
 Click the yellow question mark on the icons for Misery Mire and Turtle Rock to mark what type of medallion is required to enter each of them.
