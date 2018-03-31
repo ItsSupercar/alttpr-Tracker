@@ -1,6 +1,7 @@
 Hi I made a tracker for playing this video game
 
 INSTALLATION
+
 This is a browser-based tracker. You can simply open index.html directly to begin using it. Or if you prefer, you can host it on a web server or your machine's localhost.
 NOTE: Google Chrome does not allow local files to save cookies, so if you wish to use Chrome, the tracker will not remember your settings unless you save it to a host and navigate to it there.
 
@@ -19,15 +20,17 @@ To mark a dungeon as completed, click the boss head icon or the large icon on th
 
 TIP: For icons that count up/down, or cycle through multiple states (like the bow, keys, and dungeon chests), you can middle click to cycle backwards-- helpful if you need to undo a misclick!
 
-COLOUR LEGEND:
+COLOUR LEGEND
+
 Icons on the map are displayed in various colours. Here's what they mean:
-RED - This item is not accessible.
-ORANGE - This item is not accessible, but it is possible to check what it is.
-GREEN - This item is accessible.
-DARK GREEN - This item is accessible, but only by traversing a dark room.
-YELLOW - It is uncertain whether or not this item is accessible.
+RED: This item is not accessible.
+ORANGE: This item is not accessible, but it is possible to check what it is.
+GREEN: This item is accessible.
+DARK GREEN: This item is accessible, but only by traversing a dark room.
+YELLOW: It is uncertain whether or not this item is accessible.
 
 DUNGEON CHESTS
+
 The colour of the large circle tells you whether the boss is beatable, unbeatable, uncertain, or requires traversal of dark rooms (same as legend above).
 The colour of the numbered circle tells you whether the next item in the dungeon is available, unavailable, or uncertain. The number indicates how many items total are left in the dungeon.
 The colour and number of the small dots represents ALL the remaining items and the state of their availabiliity.
@@ -35,15 +38,15 @@ The colour and number of the small dots represents ALL the remaining items and t
 
 MODE-SPECIFIC INSTRUCTIONS
 
-REGULAR
+REGULAR:
 While exploring dungeons in this mode, you should only count chests that contain a non-dungeon item.
 
-KEY-SANITY
+KEY-SANITY:
 When you find a key inside a chest or in a free-standing location, mark it on the tracker.
 DO NOT mark keys that you find under pots or dropped by enemies!
 While exploring dungeons in this mode, you should count every chest you open, no matter what is inside.
 
-RETRO
+RETRO:
 In this mode, diamond-shaped shop icons are added to the map. If you find a shop that sells keys, mark it on the map! These same shops also sell a "wooden arrow" item that is required to use your bow (unless you find the silver arrows somewhere).
 Until you find a key shop, you should track the number of keys you've found using the key icon in the "DUNGEON" panel.
 After you find a key shop (or get enough items to guarantee that one is accessible somewhere in the world), you'll be logically considered to have infinite keys, and no longer need to count them.
@@ -51,6 +54,7 @@ While exploring dungeons in this mode, you should only count chests that contain
 
 
 OPTIONS
+
 Click the icon in the bottom left to open up the options menu.
 
 MODE: Which variation of the game you're playing with.
