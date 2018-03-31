@@ -364,7 +364,7 @@ logic = {
                     0;
 
                 min = lamp ?
-                    bow ? 3 : 2 :
+                    2 + bow ? 1 : 0 :
                     1;
 
                 max = 3;
@@ -419,9 +419,8 @@ logic = {
                         0;
 
                     min = entry ?
-                        fightLanmo ?
-                            boots ? 3 : 1 :
-                            boots ? 2 : 0 :
+                        (boots ? 2 : 0) +
+                            fightLanmo ? 1 : 0 :
                         0;
 
                     max = entry ? 3 : 0;
@@ -445,16 +444,15 @@ logic = {
                         0;
 
                     min = entry && minKey >= 1 ?
-                        fightLanmo ?
-                            boots ? 3 : 1 :
-                            boots ? 2 : 0 :
+                        (boots ? 2 : 0) +
+                            fightLanmo ? 1 : 0 :
                         0;
 
                     max = entry ?
-                        maxKey >= 1 ?
-                            3 :
-                            glove ? 3 :
-                                boots ? 2 : 1 :
+                        1 +
+                            maxKey >= 1 || glove ?
+                            2 :
+                            boots ? 1 : 0 :
                         0;
 
                 }
@@ -538,10 +536,8 @@ logic = {
                             3 :
                         0;
 
-                    min = entry && light ?
-                        fire && minKey >= 1 ?
-                            fightMold ? 3 : 2 :
-                            0 :
+                    min = entry && light && fire && minKey >= 1 ?
+                        2 + fightMold ? 1 : 0 :
                         0;
 
                     max = entry ? 3 : 0;
@@ -559,10 +555,8 @@ logic = {
                         3 :
                     0;
 
-                min = entry && light ?
-                    fire ?
-                        fightMold ? 2 : 1 :
-                        0 :
+                min = entry && light && fire ?
+                    1 + fightMold ? 1 : 0 :
                     0;
 
                 max = entry ? 2 : 0;
