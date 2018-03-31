@@ -1,4 +1,4 @@
-Hi I made a tracker for playing this video game
+Hi I made a tracker for playing this video game. It's kind of in beta, but it's mostly working, I think! Try it out!
 
 INSTALLATION
 
