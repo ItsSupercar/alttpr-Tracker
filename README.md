@@ -1,5 +1,8 @@
 Hi I made a tracker for playing this video game
 
+INSTALLATION
+This is a browser-based tracker. You can simply open index.html directly to begin using it. Or if you prefer, you can host it on a web server or your machine's localhost.
+NOTE: Google Chrome does not allow local files to save cookies, so if you wish to use Chrome, the tracker will not remember your settings unless you save it to a host and navigate to it there.
 
 GENERAL INSTRUCTIONS
 
