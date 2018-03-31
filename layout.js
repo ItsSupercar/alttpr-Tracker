@@ -449,6 +449,8 @@ layout = {
 		} else {
 			TweenMax.set("#mapBox", { 'display': 'inline' });
 
+			
+
 			//sets up the layout of the two maps and their container
 			if (mapAlign == 1) {
 				TweenMax.set("#mapBox", { width: 650, height: 1300 });
@@ -467,6 +469,8 @@ layout = {
 			BLhei = $(window).height() - $("#totalCover").height() - 38;
 			BLwid = $(window).width();
 			BLscale = Math.min(BLwid / $("#mapBox").width(), BLhei / $("#mapBox").height());
+
+			
 
 			//uses whichever layout allows the maps to be bigger
 			if (TRscale >= BLscale) {

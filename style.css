@@ -368,8 +368,8 @@ body {
 #mapDW {background-position:0px -650px;}
 
 .chest {
-	width: 32;
-	height: 32;
+	width: 32px;
+	height: 32px;
 	margin-left: -16px;
 	margin-top: -16px;
 	position: absolute;
@@ -383,7 +383,7 @@ body {
  	text-align:center;	
 	font-family:Oswald,Sans-Serif;
 	font-weight: 600;
-	font-size:19;
+	font-size:19px;
 	padding:1px 0px 0px 0px;
     line-height:23px;
 }
