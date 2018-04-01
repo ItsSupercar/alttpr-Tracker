@@ -420,8 +420,9 @@ logic = {
 
                     min = entry ?
                         (boots ? 2 : 0) +
-                            fightLanmo ? 1 : 0 :
+                        (fightLanmo ? 1 : 0) :
                         0;
+
 
                     max = entry ? 3 : 0;
 
@@ -439,20 +440,19 @@ logic = {
                     maxKey -= (settings.openMode == 0 ? 1 : 0);
 
                     boss = fightLanmo ?
-                        minKey >= 1 && boots ?
-                            1 : 3 :
+                        minKey >= 1 && boots ? 1 : 3 :
                         0;
 
                     min = entry && minKey >= 1 ?
                         (boots ? 2 : 0) +
-                            fightLanmo ? 1 : 0 :
+                        (fightLanmo ? 1 : 0) :
                         0;
 
                     max = entry ?
                         1 +
-                            maxKey >= 1 || glove ?
+                        (1 <= maxKey || glove ?
                             2 :
-                            boots ? 1 : 0 :
+                            boots ? 1 : 0) :
                         0;
 
                 }
@@ -1671,10 +1671,11 @@ logic = {
             if (keyShops[id].active == true) { found = true } //check if any shop has been clicked
         });
 
-        if (count >= 5) { found == true; } //if more than 5 shops are accessible, one must be a key shop
+        if (count >= 5) { found = true; } //if more than 5 shops are accessible, one must be a key shop
 
         items.keyShopFound.val = found ? 1 : 0;
         $("#keyAny").toggleClass("infinite", found);
+
 
         return found;
     },
@@ -1705,11 +1706,6 @@ logic = {
 
             logic.colour("#chest" + id, status);         //colours the chest on the map
         });
-
-
-
-
-
 
         $.each(logic.dungeons, function (id, test) {
             dStatus = test();
