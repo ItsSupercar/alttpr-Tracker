@@ -340,34 +340,35 @@ logic = {
                 lamp = items.lamp.val,
                 bigKey = items.bigKey0.val;
 
-            if (settings.keyMode == 1) {
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
-                boss = bow && bigKey ?
-                    lamp ? 1 : 2 :
+                boss = bow && bigKey ?          // need these to reach
+                    lamp ? 1 : 2 :              // boss accessible; light determines status
                     0;
 
                 min = 3 +                             // base access
-                    (bigKey ? 1 : 0) +                // big chest
                     (lamp ? 1 : 0) +                  // BK chest
+                    (bigKey ? 1 : 0) +                // big chest
                     (lamp && bigKey && bow ? 1 : 0)   // boss
                     ;
 
-                max = 4 +                             // base access
+                max = 4 +                             // base access (includes BK chest regardless of lamp)
                     (bigKey ? 1 : 0) +                // big chest
                     (bigKey && bow ? 1 : 0)           // boss
                     ;
 
-            } else {
+            } else {             // REGULAR AND RETRO LOGIC
 
-                boss = bow ?
-                    lamp ? 1 : 2 :
+                boss = bow ?             // need this to reach
+                    lamp ? 1 : 2 :       // boss accessible; light determines status
                     0;
 
                 min = lamp ?
-                    2 + bow ? 1 : 0 :
-                    1;
+                    2 +                // lamp guarantees two items
+                    (bow ? 1 : 0) :    // bow & lamp guarantees third item too
+                    1;              // if no lamp, it's possible only 1 chest before dark rooms has something
 
-                max = 3;
+                max = 3;      // always possible for the first three chests to have items
             }
 
             return { boss: boss, max: max, min: min }
@@ -384,92 +385,88 @@ logic = {
                 key = items.key1.val,
                 bigKey = items.bigKey1.val;
 
-            if (settings.keyMode == 1) {
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
                 boss = fightLanmo && bigKey ?
-                    key ? 1 : 3 :
+                    key ? 1 : 3 :   // if no key, player might steal pot key for chests and lock themselves out of boss
                     0;
 
                 min = entry ?
-                    1 +                                     // basic access
+                    1 +                                     // base access
                     (boots ? 1 : 0) +                       // torch
-                    (key ? 2 : 0) +                        // compass/bk chests
+                    (key ? 2 : 0) +                        // compass/BK chests
                     (bigKey ? 1 : 0) +                    // big chest
                     (fightLanmo && bigKey ? 1 : 0) :      // boss
                     0;
 
                 max = entry ?
-                    1 +                                   // basic access
+                    1 +                                   // base access
                     (boots ? 1 : 0) +                    // torch
                     (bigKey ? 1 : 0) +                   // big chest
                     (glove ?
-                        key && fightLanmo && bigKey ? 3 : 2 :   //if fully equipped, can get 3; otherwise, stealing key gives 2
-                        key ? 2 : 0) :              //if no glove, need key to get 2 chests (no boss)
+                        key && fightLanmo && bigKey ? 3 : 2 :   // if fully equipped, can get 3; otherwise, stealing key gives 2
+                        key ? 2 : 0) :              // if no glove, need key to get 2 chests (no boss)
                     0;
 
-
-
             } else if (settings.keyMode == 2) {
+                if (items.keyShopFound.val) {     // RETRO LOGIC - INFINITE KEYS
 
-
-                if (items.keyShopFound.val) {     //infinite key logic
-
-                    boss = fightLanmo ?
-                        boots ? 1 : 3 :
+                    boss = fightLanmo ?     // have inventory to fight the boss
+                        boots ? 1 : 3 :     // big key might be on torch, so if missing boots, boss access unknown
                         0;
 
                     min = entry ?
-                        (boots ? 2 : 0) +
-                        (fightLanmo ? 1 : 0) :
+                        boots ?
+                            2 +                    // boots guarantee accessing everything but boss
+                            (fightLanmo ? 1 : 0) :  // if boss beatable too, can definitely get all
+                            1 : // if BK on torch and map/compass in small chests, can only get 1 item
                         0;
 
+                    max = entry ? 3 : 0;    // map chest, compass chest, and BK chest might have items
 
-                    max = entry ? 3 : 0;
+                } else {     // RETRO LOGIC - LIMITED KEYS
 
-                } else {        //limited key logic
-
-                    maxKey = items.keyAny.val;
-                    minKey = Math.max(0,
+                    maxKey = items.keyAny.val - (settings.openMode == 0 ? 1 : 0); // if standard, you must have used a key at Hyrule Castle
+                    minKey = Math.max(0,    // subtracts the other places you might have spent your keys, if they are accessible
                         maxKey -
-                        1 -
-                        (logic.entry2() ? 1 : 0) -
-                        (logic.entry3() ? 6 : 0) -
-                        (logic.entry4() ? 1 : 0) -
-                        (logic.entry11() ? 2 : 0)
+                        (logic.entry2() ? 1 : 0) - //Tower of Hera
+                        (logic.entry3() ? 6 : 0) - //Palace of Darkness
+                        (logic.entry4() ? 1 : 0) - //Swamp Palace
+                        (logic.entry11() ? 2 : 0)  //Agahnim
                     );
-                    maxKey -= (settings.openMode == 0 ? 1 : 0);
 
                     boss = fightLanmo ?
-                        minKey >= 1 && boots ? 1 : 3 :
+                        minKey >= 1 && boots ? 1 : 3 : // if missing boots or if key uncertain, boss state unknown
                         0;
 
                     min = entry && minKey >= 1 ?
-                        (boots ? 2 : 0) +
-                        (fightLanmo ? 1 : 0) :
+                        boots ?
+                            2 +                    // boots guarantee accessing everything but boss
+                            (fightLanmo ? 1 : 0) :  // if boss beatable too, can definitely get all
+                            1 : // if BK on torch and map/compass in small chests, can only get 1 item
                         0;
 
                     max = entry ?
-                        1 +
-                        (1 <= maxKey || glove ?
-                            2 :
-                            boots ? 1 : 0) :
+                        1 + //map chest
+                        (maxKey >= 1 || glove ?
+                            2 :       // compass chest and BK chest accessible
+                            boots ? 1 : 0) :  // with no glove, best case is that torch has item 
                         0;
 
                 }
+            } else {     // REGULAR LOGIC
 
-
-            } else {
                 boss = fightLanmo ?
-                    boots ? 1 : 3 :
+                    boots ? 1 : 3 : // if no boots, boss state unknown
                     0;
 
                 min = entry ?
                     fightLanmo && boots ?
-                        2 :
-                        boots ? 1 : 0 :
+                        2 :              // can get everything
+                        boots ? 1 : 0 :  // if key or big key on torch, might not get any items
                     0;
 
-                max = entry ? 2 : 0;
+                max = entry ? 2 : 0;  //2 of first three chests might have items
             }
 
             return { boss: boss, max: max, min: min }
@@ -509,10 +506,9 @@ logic = {
                             3 :
                         0;
 
-                    min = entry && light ?
-                        fire ?
-                            fightMold ? 3 : 2 :
-                            0 :
+                    min = entry && light && fire ?
+                        2 +
+                        (fightMold ? 1 : 0) :
                         0;
 
                     max = entry ? 3 : 0;
@@ -537,7 +533,8 @@ logic = {
                         0;
 
                     min = entry && light && fire && minKey >= 1 ?
-                        2 + fightMold ? 1 : 0 :
+                        2 +
+                        (fightMold ? 1 : 0) :
                         0;
 
                     max = entry ? 3 : 0;
@@ -556,7 +553,8 @@ logic = {
                     0;
 
                 min = entry && light && fire ?
-                    1 + fightMold ? 1 : 0 :
+                    1 +
+                    (fightMold ? 1 : 0) :
                     0;
 
                 max = entry ? 2 : 0;
@@ -678,7 +676,9 @@ logic = {
                                             bow ? 3 : 1 :
                                             minKey >= 1 ?
                                                 bow ? 2 : 0 :
-                                                hamBow ? 2 : 0 :
+                                                hammer ?
+                                                    bow ? 2 : 0 :
+                                                    0 :
                         0;
 
 
