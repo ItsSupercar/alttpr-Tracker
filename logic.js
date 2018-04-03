@@ -372,7 +372,6 @@ logic = {
             }
 
             return { boss: boss, max: max, min: min }
-
         },
         1: function () { //Desert Palace
 
@@ -428,7 +427,8 @@ logic = {
 
                     maxKey = items.keyAny.val - (settings.openMode == 0 ? 1 : 0); // if standard, you must have used a key at Hyrule Castle
                     minKey = Math.max(0,    // subtracts the other places you might have spent your keys, if they are accessible
-                        maxKey -
+                        items.keyAny.val -
+                        1 -                        //Hyrule Castle
                         (logic.entry2() ? 1 : 0) - //Tower of Hera
                         (logic.entry3() ? 6 : 0) - //Palace of Darkness
                         (logic.entry4() ? 1 : 0) - //Swamp Palace
@@ -481,83 +481,76 @@ logic = {
                 bigKey = items.bigKey2.val
                 ;
 
-            if (settings.keyMode == 1) {
-                boss = fightMold && bigKey ?
-                    light ? 1 : 2 :
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
+                boss = fightMold && bigKey ?    // requirements for boss
+                    light ? 1 : 2 :             // checks if player had to use dark room to climb Death Mountain
                     0;
 
                 max = entry ?
-                    2 +                           //basic access
-                    (key && fire ? 1 : 0) +         //basement
-                    (bigKey ? 2 : 0) +                //upstairs
+                    2 +                                    //base access
+                    (key && fire ? 1 : 0) +                //basement
+                    (bigKey ? 2 : 0) +                     //upstairs
                     (bigKey && fightMold ? 1 : 0) :        //Boss
                     0;
 
                 min = light ? max : 0;      //sets min to 0 if had to go through dark
 
             } else if (settings.keyMode == 2) {
-
-
-                if (items.keyShopFound.val) { //infinite key logic
+                if (items.keyShopFound.val) {    // RETRO LOGIC - INFINITE KEYS
 
                     boss = fightMold ?
                         fire ?
-                            light ? 1 : 2 :
-                            3 :
+                            light ? 1 : 2 :     // checks if player had to use dark room to climb Death Mountain
+                            3 :                 // big key might be in basement, locking out boss
                         0;
 
                     min = entry && light && fire ?
-                        2 +
-                        (fightMold ? 1 : 0) :
-                        0;
+                        2 +                     // can open every chest and get at least 2 items
+                        (fightMold ? 1 : 0) :   // can also get 3rd item, if boss has it
+                        0;                      // if basement required, might get no items
 
-                    max = entry ? 3 : 0;
+                    max = entry ? 3 : 0;        // 3 items and big key could be in first 4 chests opened
 
-                } else {  // limited key logic
+                } else {    // RETRO LOGIC - LIMITED KEYS
 
-                    maxKey = items.keyAny.val;
-                    minKey = Math.max(0,
-                        maxKey -
-                        1 -
-                        (logic.entry1() ? 1 : 0) -
-                        (logic.entry3() ? 6 : 0) -
-                        (logic.entry4() ? 1 : 0) -
-                        (logic.entry11() ? 2 : 0)
+                    maxKey = items.keyAny.val - (settings.openMode == 0 ? 1 : 0); // if standard, you must have used a key at Hyrule Castle
+                    minKey = Math.max(0,    // subtracts the other places you might have spent your keys, if they are accessible
+                        items.keyAny.val -
+                        1 -                        // Hyrule Castle
+                        (logic.entry1() ? 1 : 0) - // Desert Palace
+                        (logic.entry3() ? 6 : 0) - // Palace of Darkness
+                        (logic.entry4() ? 1 : 0) - // Swamp Palace
+                        (logic.entry11() ? 2 : 0)  // Agahnim
                     );
-                    maxKey -= (settings.openMode == 0 ? 1 : 0);
 
-                    boss = fightMold ?
+                    boss = fightMold && maxKey >= 1 ?
                         fire && minKey >= 1 ?
-                            light ? 1 : 2 :
-                            3 :
+                            light ? 1 : 2 :     // checks if player had to use dark room to climb Death Mountain
+                            3 :                 // big key might be in basement, locking out boss
                         0;
 
                     min = entry && light && fire && minKey >= 1 ?
-                        2 +
-                        (fightMold ? 1 : 0) :
-                        0;
+                        2 +                    // can open every chest and get at least 2 items
+                        (fightMold ? 1 : 0) :  // can also get 3rd item, if boss has it
+                        0;                     // if basement required, might get no items
 
-                    max = entry ? 3 : 0;
+                    max = entry ? 3 : 0;        // 3 items and big key could be in first 4 chests opened
 
                 }
-
-
-
-
-            } else {
+            } else {    // REGULAR LOGIC
 
                 boss = fightMold ?
                     fire ?
-                        light ? 1 : 2 :
-                        3 :
+                        light ? 1 : 2 :     // checks if player had to use dark room to climb Death Mountain
+                        3 :                 // big key might be in basement, locking out boss
                     0;
 
                 min = entry && light && fire ?
-                    1 +
-                    (fightMold ? 1 : 0) :
-                    0;
+                    1 +                    // can open every chest and get at least 1 item
+                    (fightMold ? 1 : 0) :  // can also get 2nd item, if boss has it
+                    0;                     // if basement required, might get no items
 
-                max = entry ? 2 : 0;
+                max = entry ? 2 : 0;       // 2 items and big key could be in first 3 chests opened
 
             }
 
@@ -575,159 +568,125 @@ logic = {
                 fightHelm = entry && hamBow
                 ;
 
-            if (settings.keyMode == 1) {
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
-                boss = entry && hamBow && bigKey && key >= 1 ?
+                boss = entry && hamBow && bigKey && key >= 1 ? // need all this for boss
                     key == 6 ?
-                        lamp ? 1 : 2 :
-                        3 :
+                        lamp ? 1 : 2 :   // checks if player has to go through dark
+                        3 :              // if less than 6 keys, might spend them all elsewhere
                     0;
-
-
 
                 min = entry ?
-                    1 +                 // first chest
-                    (bow ? 2 : 0) +              //mimic chests
-                    (key >= 1 ? 2 : 0) +           //next 2 chests  (bridge and stalfos head room)
-                    (key >= 2 ? 1 : 0) +                      //middle chest
-                    (key >= 4 ? 1 : 0) +                                                     //turtle room chest
-                    (key >= 4 && lamp ? 2 : 0) +                                         //dark basement
-                    (key == 6 ? 1 : 0) +                                                        //harmless hellway
-                    (key == 6 && lamp && bigKey && hamBow ? 1 : 0) +                           //boss
-                    (key == 0 && hamBow ? 2 : 0) +    //can't waste key on first door if you don't have one ;)
-                    // These next lines are kinda messy!
-                    // They were left over while I was simplifying the logic tree, and they can probably be simplified too
-                    // For now they seem to get correct results, though!                 
-                    (key == 3 || key == 4 && lamp || key == 5 ? hamBow ? 0 : 1 : 0) +
-                    (key == 5 && hamBow && lamp ? 1 : 0) +
-                    ((key >= 5 || key >= 3 && hamBow) && bigKey && lamp ? 1 : 0) +
-                    (((!hamBow && (key == 5 || key == 3)) || key == 6) && lamp ? 2 : 0) :
+                    1 +                                                                       // first chest
+                    (key >= 1 || key == 0 && hamBow ? 2 : 0) +                                // next 2 chests (bridge and stalfos head room) -- can't waste a key on the front door if you don't have one ;)
+                    (key >= 2 ? 1 : 0) +                                                      // next chest (BK chest)
+                    (key >= 4 ? 1 : 0) +                                                      // next chest (turtle room -- dark basement not guaranteed)
+                    (key >= 5 ? 1 : 0) +                                                      // next chest (harmless hellway)
+                    (bow ? 2 : 0) +                                                           // mimic chests
+                    ((key == 2 || key == 4 || key == 5) && bow && hammer ? -1 : 0) +          // if have hammer, might waste key going toward boss at these key counts. don't ask why 3 is left out, it just is
+                    (key >= 3 && lamp && !hamBow ? 3 : 0) +                 // if you have light and no hammer+bow, you're forced to go toward the dark rooms, which have the most chests
+                    (key >= 4 && hamBow && lamp ? 2 : 0) +              // I dont know what these two mean 
+                    (key == 4 || key == 6 && hamBow && lamp ? 1 : 0) +  // but they make the numbers right
+                    (key >= 5 && lamp ? 1 : 0) +                                              // now you can get 2 from the dark maze instead of 1 from somewhere else, I think is what this means
+                    (key >= 5 && lamp && bigKey ? 1 : 0) +                                    // big chest
+                    (key >= 2 && hamBow && lamp && bigKey ? 1 : 0) :       // now any door you open will get you at least one item
                     0;
-
 
                 max = entry ?
-                    1 +                                                 //first chest
-                    (bow ? 2 : 0) +                                      //mimic chests
-                    (key >= 1 || key == 0 && hamBow ? 2 : 0) +   //next 2 chests    (bridge and stalfos head room)
-                    (key >= 2 || key == 1 && hamBow ? 3 : 0) +   //next 3 chests (turtle room and dark room)
-                    (key >= 3 || key == 2 && hamBow ? 2 : 0) +   //next 2 chests (dark maze)
-                    (bigKey && (key >= 3 || key == 2 && hamBow) ? 1 : 0) +  //big chest
-                    (key >= 4 || key == 3 && hamBow ? 1 : 0) +   //additional chest (harmless or middle)
-                    (key >= 5 || key == 4 && hamBow ? 1 : 0) +   //additional chest (harmless or middle)
-                    (key >= 5 && bigKey && hamBow ? 1 : 0) :    //boss
+                    1 +                                                 // first chest
+                    (bow ? 2 : 0) +                                      // mimic chests
+                    (key >= 1 || key == 0 && hamBow ? 2 : 0) +   // next 2 chests (bridge and stalfos head room)
+                    (key >= 2 || key == 1 && hamBow ? 3 : 0) +   // next 3 chests (turtle room and dark room)
+                    (key >= 3 || key == 2 && hamBow ? 2 : 0) +   // next 2 chests (dark maze)
+                    (bigKey && (key >= 3 || key == 2 && hamBow) ? 1 : 0) +  // big chest
+                    (key >= 4 || key == 3 && hamBow ? 1 : 0) +   // additional chest (harmless h or BK chest)
+                    (key >= 5 || key == 4 && hamBow ? 1 : 0) +   // additional chest (harmless h or BK chest)
+                    (key >= 5 && bigKey && hamBow ? 1 : 0) :    // boss
                     0;
 
-
-
-
             } else if (settings.keyMode == 2) {
+                if (items.keyShopFound.val) {    // RETRO LOGIC - INFINITE KEYS
 
-
-                if (items.keyShopFound.val) {     //infinite key logic
-
-                    boss = fightHelm ?
-                        lamp ? 1 : 2 :
+                    boss = fightHelm ?  // need for boss
+                        lamp ? 1 : 2 : // checks if player has to go through dark
                         0;
 
                     min = entry ?
-                        bow ?
-                            lamp ?
-                                hammer ? 11 : 10 :
-                                5 :
-                            3 :
+                        3 +                         // first 3 chests
+                        (bow ? 2 : 0) +             // mimic chests
+                        (bow && lamp ? 6 : 0) +     // dark rooms
+                        (bow && lamp && hammer ? 1 : 0) :  // boss
                         0;
 
                     max = entry ?
-                        bow ? 11 : 10 :
+                        10 +            // can just about clean the place out just by getting inside
+                        (bow ? 1 : 0) : // but you'll need the bow for at least one thing
                         0;
 
-                } else {    //limited key logic
+                } else {    // RETRO LOGIC - LIMITED KEYS
 
-                    maxKey = items.keyAny.val;
-                    minKey = Math.max(0,
-                        maxKey -
-                        1 -
-                        (logic.entry1() ? 1 : 0) -
-                        (logic.entry2() ? 1 : 0) -
-                        (logic.entry4() ? 1 : 0) -
-                        (logic.entry11() ? 2 : 0)
+                    maxKey = items.keyAny.val
+                        - (settings.openMode == 0 ? 1 : 0) // if standard, you must have used a key at Hyrule Castle
+                        - 2; // if less than 5 shops accessible, must have come via Agahnim
+
+                    minKey = Math.max(0,    // subtracts the other places you might have spent your keys, if they are accessible
+                        items.keyAny.val
+                        - 1                         // Hyrule Castle
+                        - (logic.entry1() ? 1 : 0)  // Desert Palace
+                        - (logic.entry2() ? 1 : 0)  // Tower of Hera
+                        - (logic.entry4() ? 1 : 0)  // Swamp Palace
+                        - 2                          // Agahnim
                     );
 
-                    maxKey -= (settings.openMode == 0 ? 1 : 0);
-                    maxKey -= 2; //had to use 2 keys at Aga to get into this situation
-
-
-                    boss = entry && hamBow && maxKey >= 1 ?
+                    boss = entry && hamBow && maxKey >= 1 ? // need to have at least 1 key
                         minKey >= 6 ?
-                            lamp ? 1 : 2 :
-                            3 :
+                            lamp ? 1 : 2 : // checks if player has to go through dark
+                            3 :            // if less than 6 guaranteed keys, boss status unknown
                         0;
 
                     min = entry ?
-                        minKey >= 6 ?
-                            bow ? hammer ? lamp ? 11 : 5 : lamp ? 10 : 5 : lamp ? 8 : 3 :
-                            minKey >= 5 ?
-                                bow ? hammer ? lamp ? 8 : 5 : lamp ? 9 : 7 : lamp ? 8 : 3 :
-                                minKey >= 4 ?
-                                    bow ? hammer ? lamp ? 7 : 4 : lamp ? 7 : 5 : lamp ? 5 : 3 :
-                                    minKey >= 3 ?
-                                        bow ? hammer ? lamp ? 4 : 3 : lamp ? 6 : 4 : lamp ? 4 : 2 :
-                                        minKey >= 2 ?
-                                            bow ? 3 : 1 :
-                                            minKey >= 1 ?
-                                                bow ? 2 : 0 :
-                                                hammer ?
-                                                    bow ? 2 : 0 :
-                                                    0 :
+                        (minKey >= 2 ? 1 : 0) +
+                        (minKey >= 4 ? 1 : 0) +
+                        (minKey >= 5 ? 1 : 0) +
+                        (minKey == 0 && hamBow ? 2 : 0) +
+                        (bow ? 1 : 0) +
+                        ((minKey == 1 || minKey == 3 || minKey == 4 || minKey == 6) && bow ? 1 : 0) +
+                        (minKey >= 3 && lamp ? 1 : 0) +
+                        (minKey >= 4 && lamp ? 2 : 0) +
+                        (minKey >= 5 && lamp ? 1 : 0) +
+                        (minKey >= 6 && lamp ? 1 : 0) +
+                        ((minKey == 2 || minKey == 5) && bow && !hammer ? 1 : 0) +
+                        (minKey == 2 && hamBow && lamp ? 1 : 0) +
+                        (minKey == 3 && lamp && !hamBow ? 2 : 0) +
+                        (minKey == 3 && lamp && !hammer && !bow ? 1 : 0) +
+                        (minKey == 5 && lamp && !hamBow ? 1 : 0) +
+                        (minKey == 6 && hamBow && lamp ? 1 : 0) :
                         0;
 
-
-
-                    max =
-                        entry ?
-                            maxKey >= 6 ?
-                                bow ?
-                                    hammer ? 11 : 11 :
-                                    10 :
-                                maxKey >= 5 ?
-                                    bow ?
-                                        hammer ? 11 : 11 :
-                                        10 :
-                                    maxKey >= 4 ?
-                                        bow ?
-                                            hammer ? 11 : 11 :
-                                            9 :
-                                        maxKey >= 3 ?
-                                            bow ?
-                                                hammer ? 11 : 10 :
-                                                8 :
-                                            maxKey >= 2 ?
-                                                bow ?
-                                                    hammer ? 10 : 8 :
-                                                    6 :
-                                                maxKey >= 1 ?
-                                                    bow ?
-                                                        hammer ? 8 : 5 :
-                                                        3 :
-                                                    bow ?
-                                                        hammer ? 5 : 3 :
-                                                        1 :
-                            0;
-
+                    max = entry ?
+                        1 +
+                        (maxKey >= 1 || maxKey == 0 && hamBow ? 2 : 0) +
+                        (maxKey >= 2 || maxKey == 1 && hamBow ? 3 : 0) +
+                        (maxKey >= 3 || maxKey == 2 && hamBow ? 2 : 0) +
+                        (maxKey >= 4 || maxKey == 3 && hamBow ? 1 : 0) +
+                        (maxKey >= 5 ? 1 : 0) +
+                        (bow ? 1 : 0) +
+                        (maxKey <= 4 && bow ? 1 : 0) :
+                        0;
 
                 }
 
-            } else {
+            } else {    // REGULAR LOGIC
 
-                boss = fightHelm ?
-                    lamp ? 1 : 2 :
+                boss = fightHelm ?  // need for boss
+                    lamp ? 1 : 2 : // checks if player has to go through dark
                     0;
 
-                min = entry && bow && lamp ?
-                    hammer ? 5 : 4 :
+                min = entry && bow && lamp ?   // if fully equipped, can do whole dungeon except boss
+                    hammer ? 5 : 4 :           // if hammer, can do boss too
                     0;
 
-                max = entry ? 5 : 0;
+                max = entry ? 5 : 0;        // can possibly get this many just by entering
 
             }
 
@@ -743,90 +702,81 @@ logic = {
                 bigKey = items.bigKey4.val
                 ;
 
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
-            if (settings.keyMode == 1) {
-
-                boss = fightArrg && key ? 1 : 0;
+                boss = fightArrg && key ? 1 : 0;              // all you need
 
                 min = entry ?
-                    1 +                                       //Entrance
-                    (key ? 1 : 0) +                             //Ledge Chest
-                    (key && hammer ? 3 : 0) +                //Main Dungeon
-                    (key && hammer && bigKey ? 1 : 0) +        //Big Chest 
-                    (key && hammer && hookshot ? 4 : 0) :   //Back of dungeon
+                    1 +                                       // entrance
+                    (key ? 1 : 0) +                           // ledge Chest
+                    (key && hammer ? 3 : 0) +                 // main Dungeon
+                    (key && hammer && bigKey ? 1 : 0) +       // big Chest 
+                    (key && hammer && hookshot ? 4 : 0) :     // back of dungeon
                     0;
 
-                max = min;
+                max = min;                                    // accessible items are the same no matter what
 
             } else if (settings.keyMode == 2) {
-
-                if (items.keyShopFound.val) { //infinite key logic
+                if (items.keyShopFound.val) {    // RETRO LOGIC - INFINITE KEYS
 
                     boss = fightArrg ? 1 : 0;
 
-                    min = entry ?
-                        hammer ?
-                            hookshot ? 7 : 3 :
-                            0 :
+                    min = entry && hammer ?
+                        3 +                     // main dungeon access guarantees 3
+                        (hookshot ? 4 : 0) :    // can clear full dungeon
                         0;
 
                     max = entry ?
-                        hammer ?
-                            hookshot ? 7 : 5 :
-                            2 :
+                        2 +                                // first 2 chests
+                        (hammer ? 3 : 0) +                 // main dungeon
+                        (hammer && hookshot ? 2 : 0) :     // complete dungeon
                         0;
 
-                } else {
+                } else {    // RETRO LOGIC - LIMITED KEYS
 
-                    maxKey = items.keyAny.val;
-                    minKey = Math.max(0,
-                        maxKey -
-                        1 -
-                        (logic.entry1() ? 1 : 0) -
-                        (logic.entry2() ? 1 : 0) -
-                        (logic.entry3() ? 6 : 0) -
-                        (logic.entry11() ? 2 : 0)
+                    maxKey = items.keyAny.val
+                        - (settings.openMode == 0 ? 1 : 0) // if standard, you must have used a key at Hyrule Castle
+                        - 2; // if less than 5 shops accessible, must have come via Agahnim
+
+                    minKey = Math.max(0,    // subtracts the other places you might have spent your keys, if they are accessible
+                        items.keyAny.val
+                        - 1                         // Hyrule Castle
+                        - (logic.entry1() ? 1 : 0)  // Desert Palace
+                        - (logic.entry2() ? 1 : 0)  // Tower of Hera
+                        - (logic.entry3() ? 6 : 0)  // Palace of Darkness
+                        - 2                         // Agahnim
                     );
-                    maxKey -= (settings.openMode == 0 ? 1 : 0);
-                    maxKey -= 2; //had to use 2 keys at Aga to get into this situation
 
+                    boss = fightArrg && maxKey >= 1 ?
+                        minKey >= 1 ? 1 : 3 :     // if 1 key not guaranteed, boss state unknown
+                        0;
 
-                    boss = fightArrg ?
-                        minKey >= 1 ? 1 : 3 :
+                    min = entry && minKey >= 1 ?
+                        (hammer ? 3 : 0) +               // main dungeon access guarantees 3
+                        (hammer && hookshot ? 4 : 0) :   // can clear full dungeon
                         0;
 
                     max = entry ?
-                        maxKey >= 1 ?
-                            hammer ?
-                                hookshot ? 7 : 5 :
-                                2 :
-                            1 :
-                        0;
-
-                    min = entry ?
-                        minKey >= 1 ?
-                            hammer ?
-                                hookshot ? 7 : 3 :
-                                0 :
-                            0 :
+                        1 +                                             // first chest
+                        (maxKey >= 1 ? 1 : 0) +                         // map chest
+                        (maxKey >= 1 && hammer ? 3 : 0) +               // main dungeon
+                        (maxKey >= 1 && hammer && hookshot ? 2 : 0) :   // can clear full dungeon
                         0;
 
                 }
-
-            } else {
+            } else {    // REGULAR LOGIC
 
                 boss = fightArrg ? 1 : 0;
 
                 min = entry ?
-                    hammer ?
-                        hookshot ? 6 : 2 :
-                        0 :
+                    (hammer ? 2 : 0) +              // main dungeon access guarantees 2
+                    (hammer && hookshot ? 4 : 0) :  // can clear full dungeon
                     0;
 
                 max = entry ?
-                    hammer ?
-                        hookshot ? 6 : 4 :
-                        1 :
+                    1 +                             // map chest
+                    (hammer ? 3 : 0) +              // 3 more possible with main dungeon access
+                    (hammer && hookshot ? 2 : 0) :  // can clear full dungeon
                     0;
 
             }
@@ -843,41 +793,44 @@ logic = {
                 bigKey = items.bigKey5.val
                 ;
 
-            if (settings.keyMode == 1) {
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
-                boss = fightMoth ? 1 : 0;
+                boss = fightMoth ? 1 : 0;      //boss reqs
 
                 min = entry ?
-                    5 +                         // basic access
+                    5 +                         // base access
                     (bigKey ? 1 : 0) +          // big chest
                     (firerod ? 1 : 0) +           // phase 3 chest
                     (fightMoth ? 1 : 0) :            //Boss
                     0;
 
-                max = min;
+                max = min;                  //no variation in availability
 
-            } else if (settings.keyMode == 2) {
-                boss = fightMoth ? 1 : 0;
+            } else if (settings.keyMode == 2) {    // RETRO LOGIC
+
+                boss = fightMoth ? 1 : 0;      //boss reqs
 
                 min = entry ?
-                    firerod ?
-                        sword ? 5 : 4 :
-                        3 :
+                    3 +                             // guaranteed 3 in 1st/2nd phase
+                    (firerod ? 1 : 0) +             // guaranteed a 4th
+                    (firerod && sword ? 1 : 0) :    // can complete full dungeon
                     0;
 
                 max = entry ?
-                    firerod ? 5 : 4 :
+                    4 +                             // max 4 in 1st/2nd phases
+                    (firerod ? 1 : 0) :             // can get 5th in phase 3
                     0;
 
-            } else {
+            } else {    // REGULAR LOGIC
 
-                boss = fightMoth ? 1 : 0;
+                boss = fightMoth ? 1 : 0;       //boss reqs
 
                 min = entry && firerod ?
-                    sword ? 2 : 1 :
+                    1 +                         // both might be in phase 3
+                    (sword ? 1 : 0) :           // last might be on boss
                     0;
 
-                max = entry ? 2 : 0;
+                max = entry ? 2 : 0;            // chance of finding both in 1st/2nd phases
 
             }
 
@@ -892,12 +845,12 @@ logic = {
                 bigKey = items.bigKey6.val
                 ;
 
-            if (settings.keyMode == 1) {
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
                 boss = fightBlind && bigKey ? 1 : 0;
 
                 min = entry ?
-                    4 +                                     // basic access
+                    4 +                                     // base access
                     (bigKey ? 2 : 0) +                      // upstairs and jail chests
                     (fightBlind && bigKey ? 1 : 0) +        // boss
                     (hammer && key && bigKey ? 1 : 0) :     // big chest
@@ -905,29 +858,29 @@ logic = {
 
                 max = min;
 
-            } else if (settings.keyMode == 2) {
+            } else if (settings.keyMode == 2) {    // RETRO LOGIC
 
-                boss = fightBlind ? 1 : 0;
-
-                min = entry ?
-                    hammer ?
-                        5 :
-                        fightBlind ? 4 : 3 :
-                    0;
-
-                max = entry ? 5 : 0;
-
-            } else {
-
-                boss = fightBlind ? 1 : 0;
+                boss = fightBlind ? 1 : 0;      //boss reqs
 
                 min = entry ?
-                    hammer ?
-                        4 :
-                        fightBlind ? 3 : 2 :
+                    3 +                     // guaranteed 3 from access
+                    (hammer ? 1 : 0) +      // big chest
+                    (fightBlind ? 1 : 0) :  // boss
                     0;
 
-                max = entry ? 4 : 0;
+                max = entry ? 5 : 0;        // possible to get 5 from first 6 chests
+
+            } else {    // REGULAR LOGIC
+
+                boss = fightBlind ? 1 : 0;      //boss reqs
+
+                min = entry ?
+                    2 +                         // guaranteed 2 from access
+                    (hammer ? 1 : 0) +          // big chest
+                    (fightBlind ? 1 : 0) :      // boss
+                    0;
+
+                max = entry ? 4 : 0;    // possible to get 4 from first 6 chests
 
             }
 
