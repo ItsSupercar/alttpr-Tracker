@@ -892,62 +892,58 @@ logic = {
                 hookshot = items.hookshot.val,
                 hammer = items.hammer.val,
                 somaria = items.somaria.val,
-                skipJump = somaria || hookshot,
                 spikeWalk = items.byrna.val || items.cape.val || hookshot,
                 fightKhold = entry && hammer,
                 key = items.key7.val,
                 bigKey = items.bigKey7.val
                 ;
 
-            if (settings.keyMode == 1) {
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
                 boss = fightKhold ?
-                    bigKey && (somaria && key >= 1 || key >= 2) ? 1 : 3 :
+                    bigKey && ((spikeWalk && somaria) || (spikeWalk && key == 2) || (somaria && key == 2)) ? 1 : 3 :
                     0;
 
                 min = entry ?
-                    3 +                                                            //Penguin Chest, Freezor Chest, Jelly Chest
-                    (bigKey ? 1 : 0) +                                          	        //Big Chest
-                    (hookshot || key >= 2 && spikeWalk ? 1 : 0) +	                      //Spike Chest
-                    ((hookshot || key >= 2) && spikeWalk && hammer ? 2 : 0) +           //Big Key Chest, Stalfos Chest, 
-                    (hammer && bigKey && (somaria && key >= 1 || key >= 2) ? 1 : 0) :    //Boss
+                    3 +                                                                               // compass chest, freezor chest, iced T chest
+                    (bigKey ? 1 : 0) +                                                                   // big chest    
+                    ((key == 0 && hookshot) || (key >= 1 && spikeWalk) ? 1 : 0) +                     // spike chest -- specifically need hookshot if 0 keys, otherwise any spike safety will do
+                    (hammer && ((key == 0 && hookshot) || (key >= 1 && spikeWalk)) ? 2 : 0) +       // map chest, BK chest -- specifically need hookshot if 0 keys, otherwise any spike safety will do
+                    (key >= 1 && hammer && ((spikeWalk && somaria) || (spikeWalk && key == 2) || (somaria && key == 2)) ? 1 : 0) : //boss: need 2 out of 3-- 2nd key, somaria, and/or spikeWalk to get a free key with
                     0;
 
                 max = entry ?
-                    3 +                                                 //basic access
-                    (bigKey ? 1 : 0) +		                           	//Big Chest
-                    (hookshot || key >= 1 ? 1 : 0) +                	//Spike Chest
-                    ((hookshot || key >= 1) && hammer ? 2 : 0) +        //Big Key Chest, Stalfos Chest, 
-                    (hammer ? 1 : 0)                                    //boss
-                    :
+                    4 +                             // base access + spike chest (can use free key for it)
+                    (bigKey ? 1 : 0) +              // big chest
+                    (hammer ? 3 : 0) :              // map chest, BK chest, boss
                     0;
 
-            } else if (settings.keyMode == 2) {
+            } else if (settings.keyMode == 2) {    // RETRO LOGIC
 
                 boss = fightKhold ?
-                    skipJump && spikeWalk ? 1 : 3 :
+                    spikeWalk ? 1 : 3 :
                     0;
 
                 min = entry ?
-                    hammer ?
-                        skipJump && spikeWalk ? 5 : 1 :
-                        skipJump && spikeWalk ? 4 : 1 :
+                    1 +
+                    (hammer ? 1 : 0) +
+                    (hookshot || spikeWalk ? 1 : 0) +
+                    (hammer && (hookshot || spikeWalk) ? 2 : 0) :
                     0;
 
                 max = entry ?
                     hammer ? 5 : 4 :
                     0;
 
-            } else {
+            } else {    // REGULAR LOGIC
 
                 boss = fightKhold ?
-                    skipJump ? 1 : 3 :
+                    hookshot ? 1 : 3 :
                     0;
 
                 min = entry ?
-                    hammer ?
-                        skipJump ? 3 : 1 :
-                        skipJump ? 2 : 0 :
+                    (hammer && hookshot ? 2 : 0) +
+                    (hammer && spikeWalk ? 1 : 0) :
                     0;
 
                 max = entry ? 3 : 0;
