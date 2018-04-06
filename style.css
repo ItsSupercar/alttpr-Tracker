@@ -565,8 +565,8 @@ input {cursor:pointer;}
 	font-weight:700;
 }
 
-.state0 { color: #cb0b26; }
-.state1 { color: #22ee3d; }
-.state2 { color: #016f67; }
-.state3 { color: #e4f400; }
-.state4 { color: #e26d00; }
+.captionState .state0 { color: #cb0b26; }
+.captionState .state1 { color: #22ee3d; }
+.captionState .state2 { color: #016f67; }
+.captionState .state3 { color: #e4f400; }
+.captionState .state4 { color: #e26d00; }
