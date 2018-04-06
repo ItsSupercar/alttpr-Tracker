@@ -481,7 +481,7 @@ layout = {
 				{ elem: ".stuff8", props: { x: 356, y: 260 } },
 				{ elem: ".stuff9", props: { x: 424, y: 260 } },
 				{ elem: ".stuff10", props: { x: -5000, y: 4 } },
-				{ elem: ".stuff11", props: { x: 496, y: 260 } },
+				{ elem: ".stuff11", props: { x: 496, y: 240 } },
 			],
 			1: [//keysanity
 				{ elem: "#items", props: { width: 636, height: 416 } },

@@ -17,7 +17,7 @@ Click the yellow question mark on the icons for Misery Mire and Turtle Rock to m
 (Unknown -> Bombos -> Ether -> Quake)
 To mark a dungeon as completed, click the boss head icon or the large icon on the map.
 
-TIP: For icons that count up/down, or cycle through multiple states (like the bow, keys, and dungeon chests), you can middle click to cycle backwards-- helpful if you need to undo a misclick!
+TIP: For icons that count up/down, or cycle through multiple states (like the bow, keys, and dungeon chests), you can right click to cycle backwards-- helpful if you need to undo a misclick!
 
 COLOUR LEGEND
 

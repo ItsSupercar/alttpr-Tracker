@@ -147,7 +147,7 @@ chests = {
 	56: { world: "DW", amount: 1, xPos: 5.00, yPos: 46.2, opened: false, status: null, name: "Chest Game" },
 	57: { world: "DW", amount: 1, xPos: 31.7, yPos: 60.5, opened: false, status: null, name: "Hammer Pegs" },
 	58: { world: "DW", amount: 1, xPos: 34.3, yPos: 15.5, opened: false, status: null, name: "Bumper Cave" },
-	59: { world: "LW", amount: 1, xPos: 30.6, yPos: 51.7, opened: false, status: null, name: "BlackSmith" },
+	59: { world: "LW", amount: 1, xPos: 30.6, yPos: 51.7, opened: false, status: null, name: "Blacksmith" },
 	60: { world: "DW", amount: 1, xPos: 30.5, yPos: 52.5, opened: false, status: null, name: "Purple Chest" },
 	61: { world: "DW", amount: 5, xPos: 59.9, yPos: 77.8, opened: false, status: null, name: "Hype Cave" },
 	62: { world: "DW", amount: 1, xPos: 30.9, yPos: 68.5, opened: false, status: null, name: "Stumpy" },
@@ -195,8 +195,8 @@ map = {
 			$("#map" + dungeon.world).append("<div class='chest dungeonChest' onclick=toggle.dungeonChest(" + id + ") id=dungeonChest" + id + " style=left:" + dungeon.xPos + "%;top:" + dungeon.yPos + "%;z-index:" + (1200 - id) + ">" + dungeon["chests" + settings.keyMode] + "</div>");
 		});
 
-		$('.dungeonChest').mousedown(function (event) {	//adds middle-click functionality to dungeon chest counters
-			if (event.which == 2) {
+		$('.dungeonChest').mousedown(function (event) {	//adds right-click functionality to dungeon chest counters
+			if (event.which == 3) {
 				toggle.dungeonChest((this.id.replace(/\D/g, '')), true);
 			};
 		});
@@ -231,6 +231,10 @@ map = {
 
 		}, function () {
 			$("#caption").html("");
+		});
+
+		$(".icon, .dungeonChest").on("contextmenu", function () {
+			return false;
 		});
 
 	},
@@ -307,6 +311,16 @@ toggle = {
 		logic.apply();
 	},
 	icon: function (icon, reverse = false) {			//toggles icons on the tracker
+
+		if (icon.id.indexOf("bigPrize") >= 0) {			//if icon is a Bigprize, changes the target
+			num = icon.id.replace(/\D/g, '');
+			icon = $("#prize" + num)[0];
+		}
+
+		if (icon.id.indexOf("abbr") >= 0) {			//if icon is a dungeon abbr, changes the target
+			num = icon.id.replace(/\D/g, '');
+			icon = $("#boss" + num)[0];
+		}
 
 		//increments or decrements the icon state
 		curVal = items[icon.id].val;

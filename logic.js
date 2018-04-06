@@ -150,7 +150,7 @@ logic = {
         29: function () { return items.boots.val ? 1 : 4; }, // Library
         30: function () { return 1; }, // Maze Race
         31: function () { // Desert Ledge
-            return items.book.val || items.flute.val && items.glove.val >= 2 && items.mirror.val ? 1 : 3;
+            return logic.entry1() ? 1 : 4;
         },
         32: function () { // Lake Hylia Island
             return items.flippers.val ?
