@@ -560,13 +560,8 @@ input {cursor:pointer;}
 	overflow:hidden;
 }
 
-
-.captionState {
-	font-weight:700;
-}
-
-.captionState .state0 { color: #cb0b26; }
-.captionState .state1 { color: #22ee3d; }
-.captionState .state2 { color: #016f67; }
-.captionState .state3 { color: #e4f400; }
-.captionState .state4 { color: #e26d00; }
+.captionState0 { color: #cb0b26; font-weight:700;}
+.captionState1 { color: #22ee3d; font-weight:700;}
+.captionState2 { color: #016f67; font-weight:700;}
+.captionState3 { color: #e4f400; font-weight:700;}
+.captionState4 { color: #e26d00; font-weight:700;}

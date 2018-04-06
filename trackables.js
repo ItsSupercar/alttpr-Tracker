@@ -226,10 +226,10 @@ map = {
 				$("#caption").html(dungeons[id].name + " Chests");
 			} else if (this.id.indexOf("keyShop") >= 0) {
 				var state = logic.keyShops[id]();
-				$("#caption").html(keyShops[id].name+" &nbsp;<span class='captionState state"+state+"'>"+states[state]+"</span>");
+				$("#caption").html(keyShops[id].name+" &nbsp;<span class='captionState"+state+"'>"+states[state]+"</span>");
 			} else {
 				var state = logic.chests[id]();
-				$("#caption").html(chests[id].name+" &nbsp;<span class='captionState state"+state+"'>"+states[state]+"</span>");
+				$("#caption").html(chests[id].name+" &nbsp;<span class='captionState"+state+"'>"+states[state]+"</span>");
 			}
 
 		}, function () {
