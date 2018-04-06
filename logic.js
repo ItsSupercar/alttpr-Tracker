@@ -1,5 +1,4 @@
 
-
 logic = {
     //these functions return true or false
     darkWorldNW: function () { //check for access to this whole region
@@ -901,11 +900,11 @@ logic = {
             if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
                 boss = fightKhold ?
-                    bigKey && ((spikeWalk && somaria) || (spikeWalk && key == 2) || (somaria && key == 2)) ? 1 : 3 :
+                    bigKey && key >= 1 && ((spikeWalk && somaria) || (spikeWalk && key == 2) || (somaria && key == 2)) ? 1 : 3 : //boss reqs; need 2 out of 3-- 2nd key, somaria, and/or spikeWalk to get a free key with
                     0;
 
                 min = entry ?
-                    3 +                                                                               // compass chest, freezor chest, iced T chest
+                    3 +                                                                               // compass chest, freezor chest, ice T chest
                     (bigKey ? 1 : 0) +                                                                   // big chest    
                     ((key == 0 && hookshot) || (key >= 1 && spikeWalk) ? 1 : 0) +                     // spike chest -- specifically need hookshot if 0 keys, otherwise any spike safety will do
                     (hammer && ((key == 0 && hookshot) || (key >= 1 && spikeWalk)) ? 2 : 0) +       // map chest, BK chest -- specifically need hookshot if 0 keys, otherwise any spike safety will do
@@ -920,40 +919,39 @@ logic = {
 
             } else if (settings.keyMode == 2) {    // RETRO LOGIC
 
-                boss = fightKhold ?
-                    spikeWalk ? 1 : 3 :
+                boss = fightKhold ?                   //boss reqs
+                    spikeWalk ? 1 : 3 :             //big key might be past spikes
                     0;
 
                 min = entry ?
-                    1 +
-                    (hammer ? 1 : 0) +
-                    (hookshot || spikeWalk ? 1 : 0) +
-                    (hammer && (hookshot || spikeWalk) ? 2 : 0) :
+                    1 +                                                 // guaranteed 1 item from first 4 chests
+                    (hammer ? 1 : 0) +                                  // 3 items might be behind hammer
+                    (hookshot || spikeWalk ? 1 : 0) +                   // 2 items might be past spike/hammer area
+                    (hammer && (hookshot || spikeWalk) ? 2 : 0) :       // can get everything
                     0;
 
                 max = entry ?
-                    hammer ? 5 : 4 :
+                    hammer ? 5 : 4 :                                    // if hammer, can get all; otherwise best case is 4
                     0;
 
             } else {    // REGULAR LOGIC
 
                 boss = fightKhold ?
-                    hookshot ? 1 : 3 :
+                    hookshot ? 1 : 3 :            // big key might be past spikes
                     0;
 
                 min = entry ?
-                    (hammer && hookshot ? 2 : 0) +
-                    (hammer && spikeWalk ? 1 : 0) :
+                    (hammer && hookshot ? 2 : 0) +      // hammer and hookshot guarantee all chests
+                    (hammer && spikeWalk ? 1 : 0) :     // hammer and other form of spikeWalk guarantee one
                     0;
 
-                max = entry ? 3 : 0;
+                max = entry ? 3 : 0;                // first three chests could have items
 
             }
 
             return { boss: boss, max: max, min: min }
         },
         8: function () { //Misery Mire
-
 
             var entry = logic.entry8(),
                 lamp = items.lamp.val,
@@ -967,7 +965,7 @@ logic = {
                 medallion = logic.medallion(8)
                 ;
 
-            if (settings.keyMode == 1) {
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
                 boss = fightVit && bigKey ?
                     medallion == 1 ?
@@ -990,7 +988,7 @@ logic = {
                     (fightVit && bigKey && lamp ? 1 : 0) :    //Boss
                     0;
 
-            } else if (settings.keyMode == 2) {
+            } else if (settings.keyMode == 2) {    // RETRO LOGIC
 
                 boss = fightVit ?
                     medallion == 1 ?
@@ -1009,7 +1007,7 @@ logic = {
                     fire || somaria ? 5 : 4 :
                     0;
 
-            } else {
+            } else {    // REGULAR LOGIC
 
                 boss = fightVit ?
                     medallion == 1 ?
@@ -1042,8 +1040,7 @@ logic = {
                 bigKey = items.bigKey9.val
                 ;
 
-            if (settings.keyMode == 1) {
-
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
                 boss = fightTri && bigKey && key >= 3 ?
                     medallion == 1 ?
@@ -1053,44 +1050,28 @@ logic = {
                         medallion :
                     0;
 
-                max = entry && medallion !== 0 ?
-                    1 +	                //Compass Chest
-                    (firerod ? 2 : 0) + 	//Spike Roller Chests
-                    (key >= 1 ? 1 : 0) +    //Chomp Room
-                    (key >= 2 ? 1 : 0) +      //BK Chest, or boss instead if enough keys
-                    (key == 4 ?
-                        bigKey ? (6 + (fightTri ? 1 : 0)) : 0 : //Big Chest, Crystaroller, Laser Bridge, Boss
-                        key == 3 ?
-                            bigKey ? 6 : 0 :   //Big Chest, Crystaroller, Laser Bridge
-                            key == 2 ?
-                                bigKey ? 5 : 0 :     //Big Chest, possible laser bridge if skip BK chest
-                                0) :
-                    0;
-
                 min = entry && light && 1 == medallion ?
-                    1 +				        //Compass Chest
-                    (firerod ? 2 : 0) +		//Spike Roller Chests
-                    (key >= 1 ? 1 : 0) +   //Chomp room
-                    (key >= 2 ? 1 : 0) +      //BK Chest, or boss instead if enough keys
-                    (key == 4 ?
-                        (bigKey ? (2 +
-                            (lamp ?           //Need light to guarantee last 5 items
-                                ((safety ? 4 : 0) + (fightTri ? 1 : 0)) :    //Laser Bridge + Boss
-                                0)) :
-                            0) :
-                        key == 3 ?
-                            (bigKey ?
-                                (1 +
-                                    (lamp ?           //Need light to guarantee last 5 items
-                                        ((safety ? 4 : 0) + (fightTri ? 1 : 0)) :     //Laser Bridge + Boss
-                                        0)) :
-                                0) :
-                            key == 2 ?
-                                bigKey ? 2 : 0 :		    //Big Chest, Crystaroller Chest
-                                0) :
+                    1 +                             // compass Chest
+                    (firerod ? 2 : 0) +          	//Spike Roller Chests
+                    (key >= 1 ? 1 : 0) +          // chomp room
+                    (key >= 2 ? 1 : 0) +         // BK chest
+                    (key >= 2 && bigKey ? 2 : 0) +  //big chest and crystaroller chest
+                    (key == 3 && bigKey ? -1 : 0) +  // must leave 1 behind-- either BK chest or boss
+                    (key >= 3 && bigKey && lamp && safety ? 4 : 0) + // laser bridge
+                    (key >= 3 && firerod && bigKey && lamp && icerod ? 1 : 0) : // boss
                     0;
 
-            } else if (settings.keyMode == 2) {
+                max = entry && medallion !== 0 ?
+                    1 +                             // compass Chest
+                    (firerod ? 2 : 0) +                               // compass Chest
+                    (key >= 1 ? 1 : 0) +            // chomp room
+                    (key >= 2 ? 1 : 0) +            // BK chest
+                    (key >= 2 && bigKey ? 5 : 0) +  // crystaroller chest and laser bridge
+                    (key >= 3 && bigKey ? 1 : 0) +  // big chest
+                    (key == 4 && firerod && bigKey && icerod ? 1 : 0) : //boss
+                    0;
+
+            } else if (settings.keyMode == 2) {    // RETRO LOGIC
 
                 boss = fightTri ?
                     medallion == 1 ?
@@ -1099,19 +1080,19 @@ logic = {
                     0;
 
                 min = entry && light && medallion == 1 ?
-                    firerod ?
-                        safety ?
-                            icerod ? 9 : 8 :
-                            4 :
-                        2 :
+                    2 +
+                    (firerod ? 2 : 0) +
+                    (firerod && safety ? 4 : 0) +
+                    (firerod && safety && icerod ? 1 : 0) :
                     0;
-
 
                 max = entry && medallion !== 0 ?
-                    firerod ? 9 : 8 :
+                    8 +
+                    (firerod ? 1 : 0) :
                     0;
 
-            } else {
+            } else {    // REGULAR LOGIC
+
                 boss = fightTri ?
                     medallion == 1 ?
                         lamp ? 1 : 2 :
@@ -1121,9 +1102,9 @@ logic = {
                 max = entry && medallion !== 0 ? 5 : 0;
 
                 min = entry && light && firerod && medallion == 1 ?
-                    safety ?
-                        icerod ? 5 : 4 :
-                        1 :
+                    1 +
+                    (safety ? 3 : 0) +
+                    (safety && icerod ? 1 : 0) :
                     0;
             }
 
@@ -1132,7 +1113,8 @@ logic = {
         10: function () { //Ganon's Tower
 
             var entry = logic.entry10(),
-                canClimb = items.bow.val >= 2 && logic.fire(),
+                bigKey = items.bigKey10.val,
+                canClimb = items.bow.val >= 2 && logic.fire() && (bigKey || settings.keyMode !== 1),
                 light = items.lamp.val,
                 somaria = items.somaria.val,
                 firerod = items.firerod.val,
@@ -1142,14 +1124,10 @@ logic = {
                 hamHook = hammer && hookshot,
                 boots = items.boots.val,
                 hamBoots = hammer && boots,
-                key = items.key10.val,
-                bigKey = items.bigKey10.val
+                key = items.key10.val
                 ;
 
-
-
-            if (settings.keyMode == 1) {
-
+            if (settings.keyMode == 1) {    // KEY-SANITY LOGIC
 
                 boss = entry && canClimb && hookshot && bigKey && key >= 1 ?
                     key == 4 ?
@@ -1157,187 +1135,63 @@ logic = {
                         3 :
                     0;
 
-
-
                 max = entry ?
                     2 +                     //hope room
                     (boots ? 1 : 0) +       //torch
                     (hamHook ? 4 : 0) +     //dark mag room
                     (somaria ? 1 : 0) +     //tile room
-                    (key >= 3 ?                           //...and the rest
-                        canClimb ?
-                            hamHook ?                           ///   yeah I know
-                                fireCane ? 19 : 15 :
-                                fireCane ?
-                                    hamBoots ?
-                                        13 :
-                                        hookshot ? 13 : 12 :
-                                    hamBoots ?
-                                        4 :
-                                        hookshot ? 4 : 3 :
-                            hamHook ?
-                                fireCane ?
-                                    bigKey ? 15 : 14 :
-                                    bigKey ? 11 : 10 :
-                                fireCane ?
-                                    hamBoots ?
-                                        bigKey ? 10 : 9 :
-                                        bigKey ? 9 : 8 :
-                                    hamBoots ? 1 : 0 :
-                        key == 2 ?
-                            canClimb ?
-                                hamHook ?
-                                    fireCane ? 18 : 15 :
-                                    fireCane ?
-                                        hamBoots ?
-                                            13 :
-                                            hookshot ? 13 : 12 :
-                                        hamBoots ?
-                                            4 :
-                                            hookshot ? 4 : 3 :
-                                hamHook ?
-                                    fireCane ?
-                                        bigKey ? 15 : 14 :
-                                        bigKey ? 11 : 10 :
-                                    fireCane ?
-                                        hamBoots ?
-                                            bigKey ? 10 : 9 :
-                                            bigKey ? 9 : 8 :
-                                        hamBoots ? 1 : 0 :
-                            key == 1 ?
-                                canClimb ?
-                                    hamHook ?
-                                        fireCane ? 17 : 14 :
-                                        fireCane ?
-                                            hamBoots ?
-                                                13 :
-                                                hookshot ? 13 : 12 :
-                                            hamBoots ?
-                                                4 :
-                                                hookshot ? 4 : 3 :
-                                    hamHook ?
-                                        fireCane ?
-                                            bigKey ? 14 : 13 :
-                                            bigKey ? 11 : 10 :
-                                        fireCane ?
-                                            hamBoots ?
-                                                bigKey ? 10 : 9 :
-                                                bigKey ? 9 : 8 :
-                                            hamBoots ? 1 : 0 :
-                                canClimb ?
-                                    hamHook ?
-                                        fireCane ? 16 : 13 :
-                                        fireCane ?
-                                            hamBoots ? 13 : 12 :
-                                            hamBoots ?
-                                                4 :
-                                                hookshot ? 4 : 3 :
-                                    hamHook ?
-                                        bigKey ? 10 : 9 :
-                                        fireCane ?
-                                            hamBoots ?
-                                                bigKey ? 10 : 9 :
-                                                bigKey ? 9 : 8 :
-                                            hamBoots ? 1 : 0) :
+                    (canClimb ? 3 : 0) +    //helmasaur chests & anti-fairy chest
+                    (fireCane || hamHook ? 8 : 0) + //Bob's chest, BK room chest, either compass room or rando room
+                    (bigKey && (fireCane || hamHook) ? 1 : 0) + //big chest
+                    (hamHook || hamBoots ? 1 : 0) + //map chest
+                    (key >= 1 && hamHook ? 1 : 0) + //firesnake room
+                    //chests from either compass or rando room  
+                    (key == 0 && canClimb && fireCane && hamHook ? 3 : 0) +
+                    (key >= 1 && fireCane && hamHook ? 3 : 0) +
+                    (key >= 2 && fireCane && hamHook ? 1 : 0) +
+                    (key == 2 && canClimb && !fireCane && hamHook ? 1 : 0) +
+                    //moldorm chest (if not better options elsewhere)
+                    (key == 0 && canClimb && !fireCane && !hammer && hookshot ? 1 : 0) +
+                    (key == 1 && canClimb && !hammer && hookshot ? 1 : 0) +
+                    (key == 2 && canClimb && !hammer && hookshot ? 1 : 0) +
+                    (key >= 3 && canClimb && hookshot ? 1 : 0) :
                     0;
-
-
-
 
                 min = entry && logic.DMlight() ?
                     2 +                     //hope room
                     (boots ? 1 : 0) +       //torch
                     (hamHook ? 4 : 0) +     //dark mag room
                     (somaria ? 1 : 0) +     //tile room
-                    (key == 4 ?
-                        canClimb ?
-                            hamHook ?
-                                fireCane ? 19 : 15 :
-                                fireCane ?
-                                    hamBoots ?
-                                        13 :
-                                        hookshot ? 13 : 12 :
-                                    hamBoots ?
-                                        4 :
-                                        hookshot ? 4 : 3 :
-                            hamHook ?
-                                fireCane ?
-                                    bigKey ? 15 : 14 :
-                                    bigKey ? 11 : 10 :
-                                fireCane ?
-                                    hamBoots ?
-                                        bigKey ? 10 : 9 :
-                                        bigKey ? 9 : 8 :
-                                    hamBoots ? 1 : 0 :
-                        key == 3 ?
-                            canClimb ?
-                                hamHook ?
-                                    15 :
-                                    fireCane ?
-                                        hamBoots ?
-                                            13 :
-                                            hookshot ? 13 : 12 :
-                                        hamBoots ?
-                                            4 :
-                                            hookshot ? 4 : 3 :
-                                fireCane ?
-                                    hamHook ?
-                                        bigKey ? 15 : 14 :
-                                        bigKey ?
-                                            hamBoots ? 10 : 9 :
-                                            hamBoots ? 9 : 8 :
-                                    hamHook ?
-                                        bigKey ? 11 : 10 :
-                                        hamBoots ? 1 : 0 :
-                            key == 2 ?
-                                canClimb ?
-                                    hamHook ?
-                                        6 :
-                                        fireCane ?
-                                            hamBoots ?
-                                                4 :
-                                                hookshot ? 13 : 12 :
-                                            hamBoots ?
-                                                3 :
-                                                hookshot ? 4 : 3 :
-                                    fireCane ?
-                                        hamHook ?
-                                            bigKey ? 11 : 10 :
-                                            bigKey ?
-                                                hamBoots ? 10 : 9 :
-                                                hamBoots ? 9 : 8 :
-                                        hamHook ?
-                                            2 :
-                                            hamBoots ? 1 : 0 :
-                                key == 1 ?
-                                    canClimb ?
-                                        hamHook ?
-                                            5 :
-                                            fireCane ?
-                                                hamBoots ?
-                                                    4 :
-                                                    hookshot ? 4 : 3 :
-                                                3 :
-                                        fireCane ?
-                                            hamHook ?
-                                                2 :
-                                                hamBoots ?
-                                                    1 :
-                                                    bigKey ? 9 : 8 :
-                                            hamHook ? 1 : 0 :
-                                    canClimb ?
-                                        hamHook ?
-                                            4 :
-                                            fireCane ? 3 : 2 :
-                                        fireCane && hamHook ? 1 : 0) :
+                    (canClimb ? 2 : 0) +    //helmasaur chests
+                    (key >= 1 && canClimb ? 1 : 0) +            //anti-fairy chest
+                    (key >= 2 && canClimb && hookshot ? 1 : 0) +       //Moldorm chest
+                    //firesnake or map chest or randomizer room, depending on key use
+                    (key >= 1 && hammer && hookshot ? 1 : 0) +
+                    (key >= 2 && hammer && hookshot ? 1 : 0) +
+                    (key >= 3 && hammer && hookshot ? 3 : 0) +
+                    // Bob's chest, BK room chests
+                    (key >= 3 && (hamHook || fireCane) ? 4 : 0) +
+                    (key == 2 && ((!canClimb && fireCane) || (fireCane && !hammer) || (fireCane && !boots && !hookshot)) ? 4 : 0) +
+                    (key == 1 && !canClimb && fireCane && !(hammer && hookshot) && !(hammer && boots) ? 4 : 0) +
+                    //compass room
+                    (key == 4 && fireCane ? 4 : 0) +
+                    (key == 3 && fireCane && (!canClimb || !hamHook) ? 4 : 0) +
+                    (key == 2 && ((!canClimb && fireCane) || (fireCane && !hammer) || (fireCane && !boots && !hookshot)) ? 4 : 0) +
+                    (key == 1 && !canClimb && fireCane && !(hammer && hookshot) && !(hammer && boots) ? 4 : 0) +
+                    //big chest
+                    (key >= 3 && bigKey && (hamHook || fireCane) ? 1 : 0) +
+                    (key == 2 && bigKey && fireCane && (!canClimb || !hamHook) ? 1 : 0) +
+                    (key == 1 && bigKey && (!canClimb || hammer) && (canClimb || fireCane) && (canClimb || !hammer) ? 1 : 0) +
+                    //map chest
+                    (key == 2 && !canClimb && hammer && !hookshot && boots ? 1 : 0) +
+                    (key >= 3 && hammer && (hookshot || boots) ? 1 : 0) +
+                    (key == 1 && fireCane && (!canClimb || (hammer && boots && !hookshot)) ? 1 : 0) +
+
+                    (key == 0 && canClimb && hamHook ? 2 : 0) + //firesnake or map chest or anti-fairy chest
+                    (key == 0 && fireCane && !hamHook ? 1 : 0) : //I DON'T KNOW
                     0;
 
-
-
-
-
-
-            } else if (settings.keyMode == 2) {
+            } else if (settings.keyMode == 2) {    // RETRO LOGIC
 
                 boss = entry && canClimb && hookshot ?
                     hamHook && fireCane && boots ?
@@ -1345,89 +1199,46 @@ logic = {
                         3 :
                     0;
 
-
                 min = entry && logic.DMlight() ?
-                    somaria ?
-                        hammer ?
-                            firerod ?
-                                boots ?
-                                    hookshot ?
-                                        canClimb ? 24 : 20 :
-                                        11 :
-                                    hookshot ?
-                                        canClimb ? 23 : 19 :
-                                        9 :
-                                boots ?
-                                    hookshot ?
-                                        16 :
-                                        canClimb ? 3 : 2 :
-                                    hookshot ?
-                                        15 :
-                                        canClimb ? 1 : 0 :
-                            firerod ?
-                                boots ? 10 : 9 :
-                                boots ?
-                                    canClimb ? 2 : 1 :
-                                    canClimb ? 1 : 0 :
-                        hammer ?
-                            boots ?
-                                hookshot ?
-                                    15 :
-                                    canClimb ? 2 : 1 :
-                                hookshot ? 14 : 0 :
-                            boots && canClimb ? 1 : 0 :
+                    (somaria && hammer && !firerod && boots && !hookshot && canClimb ? 1 : 0) +
+                    (somaria && hammer && !firerod && !boots && hookshot && canClimb ? 1 : 0) +
+                    (somaria && hammer && firerod && hookshot && canClimb ? 4 : 0) +
+                    (!somaria && hammer && boots && !hookshot && canClimb ? 1 : 0) +
+                    (somaria && hammer && !firerod && hookshot ? 5 : 0) +
+                    (somaria && !hammer && !firerod && canClimb ? 1 : 0) +
+                    (!somaria && !hammer && boots && canClimb ? 1 : 0) +
+                    (somaria && hammer && !boots && hookshot ? 1 : 0) +
+                    (!somaria && hammer && hookshot ? 5 : 0) +
+                    (somaria && firerod ? 9 : 0) +
+                    (somaria && boots ? 1 : 0) +
+                    (hammer && boots ? 1 : 0) +
+                    (hammer && hookshot ? 9 : 0) :
                     0;
-
-
 
                 max = entry ?
-                    canClimb ?
-                        somaria ?
-                            firerod ?
-                                hammer ?
-                                    hookshot ?
-                                        24 :
-                                        boots ? 16 : 14 :
-                                    hookshot ?
-                                        boots ? 16 : 15 :
-                                        boots ? 15 : 14 :
-                                hammer ?
-                                    hookshot ?
-                                        boots ? 22 : 21 :
-                                        boots ? 7 : 5 :
-                                    hookshot ?
-                                        boots ? 7 : 6 :
-                                        boots ? 6 : 5 :
-                            hammer ?
-                                hookshot ?
-                                    boots ? 21 : 20 :
-                                    boots ? 6 : 4 :
-                                hookshot ?
-                                    boots ? 6 : 5 :
-                                    boots ? 5 : 4 :
-                        somaria ?
-                            firerod ?
-                                hammer ?
-                                    hookshot ?
-                                        boots ? 22 : 21 :
-                                        boots ? 13 : 11 :
-                                    boots ? 12 : 11 :
-                                hammer ?
-                                    hookshot ?
-                                        boots ? 18 : 17 :
-                                        boots ? 5 : 3 :
-                                    boots ? 4 : 3 :
-                            hammer ?
-                                hookshot ?
-                                    boots ? 17 : 16 :
-                                    boots ? 4 : 2 :
-                                boots ? 3 : 2 :
+                    2 + //hope room
+                    (somaria ? 1 : 0) + //tile room
+                    (canClimb ? 2 : 0) +
+                    (canClimb && hookshot ? 1 : 0) +
+                    (canClimb && somaria && hammer && !hookshot && boots ? 2 : 0) +
+                    (canClimb && somaria && firerod ? 1 : 0) +
+                    (canClimb && somaria && !firerod && hammer && hookshot ? 2 : 0) +
+                    (canClimb && !somaria && hammer && hookshot ? 1 : 0) +
+                    (!canClimb && somaria && hammer && hookshot ? 1 : 0) +
+                    (!canClimb && somaria && !firerod && hammer && !hookshot && boots ? 2 : 0) +
+                    (!canClimb && somaria && firerod && hammer && hookshot && boots ? 1 : 0) +
+                    (somaria && firerod ? 8 : 0) +
+                    (somaria && !firerod && hammer && hookshot ? 4 : 0) +
+                    (somaria && !firerod && hammer && hookshot && boots ? 1 : 0) +
+                    (!somaria && hammer && hookshot ? 5 : 0) +
+                    (!somaria && hammer && boots ? 1 : 0) +
+                    (!somaria && hammer && !hookshot && boots ? 1 : 0) +
+                    (hammer && hookshot ? 9 : 0) +
+                    (!hammer && boots ? 1 : 0) :
                     0;
 
+            } else {    // REGULAR LOGIC
 
-
-
-            } else {
                 boss = entry && canClimb && hookshot ?
                     hamHook && fireCane && boots ?
                         logic.DMlight() ? 1 : 2 :
@@ -1435,81 +1246,34 @@ logic = {
                     0;
 
                 min = entry ?
-                    canClimb ?
-                        somaria ?
-                            firerod ?
-                                hammer ?
-                                    hookshot ?
-                                        boots ? 20 : 16 :
-                                        boots ? 8 : 5 :
-                                    boots ? 6 : 5 :
-                                hammer && hookshot ?
-                                    boots ? 13 : 12 :
-                                    0 :
-                            hammer && hookshot ?
-                                boots ? 12 : 11 :
-                                0 :
-                        somaria ?
-                            firerod ?
-                                hammer ?
-                                    hookshot ?
-                                        boots ? 17 : 16 :
-                                        boots ? 8 : 5 :
-                                    boots ? 6 : 5 :
-                                hammer && hookshot ?
-                                    boots ? 9 : 8 :
-                                    0 :
-                            hammer && hookshot ?
-                                boots ? 12 : 11 :
-                                0 :
+                    (somaria && firerod && hammer && hookshot ? 3 : 0) +
+                    (!somaria && !firerod && hammer && hookshot ? 11 : 0) +
+                    (somaria && hammer && hookshot ? 8 : 0) +
+                    (hammer && hookshot && boots ? 1 : 0) +
+                    (somaria && firerod ? 5 : 0) +
+                    (somaria && firerod && !hammer && boots ? 1 : 0) +
+                    (somaria && firerod && hammer && !hookshot && boots ? 3 : 0) +
+                    (canClimb && somaria && !firerod && hammer && hookshot ? 4 : 0) +
+                    (canClimb && somaria && firerod && hammer && hookshot && boots ? 3 : 0) :
                     0;
 
                 max = entry ?
-                    canClimb ?
-                        somaria ?
-                            firerod ?
-                                hammer ?
-                                    hookshot ?
-                                        20 :
-                                        boots ? 16 : 13 :
-                                    boots ? 14 : 13 :
-                                hammer ?
-                                    hookshot ?
-                                        20 :
-                                        boots ? 8 : 5 :
-                                    hookshot ?
-                                        boots ? 7 : 6 :
-                                        boots ? 6 : 5 :
-                            hammer ?
-                                hookshot ?
-                                    boots ? 20 : 19 :
-                                    boots ? 7 : 4 :
-                                hookshot ?
-                                    boots ? 6 : 5 :
-                                    boots ? 5 : 4 :
-                        somaria ?
-                            firerod ?
-                                hammer ?
-                                    hookshot ?
-                                        20 :
-                                        boots ? 14 : 11 :
-                                    boots ? 12 : 11 :
-                                hammer ?
-                                    hookshot ?
-                                        boots ? 19 : 18 :
-                                        boots ? 6 : 3 :
-                                    boots ? 4 : 3 :
-                            hammer ?
-                                hookshot ?
-                                    boots ? 18 : 17 :
-                                    boots ? 5 : 2 :
-                                boots ? 3 : 2 :
+                    2 +
+                    ((firerod && somaria) || (hammer && hookshot) ? 7 : 0) +
+                    (canClimb ? 2 : 0) +
+                    (somaria ? 1 : 0) +
+                    (boots ? 1 : 0) +
+                    (canClimb && hookshot ? 1 : 0) +
+                    (hammer && !hookshot && boots ? 2 : 0) +
+                    (hammer && hookshot ? 6 : 0) +
+                    (!canClimb && hammer && hookshot ? 2 : 0) +
+                    (canClimb && !somaria && hammer && hookshot ? 1 : 0) +
+                    ((canClimb || firerod) && hammer && somaria && !boots && hookshot ? 1 : 0) +
+                    ((!canClimb || !hookshot) && firerod && somaria ? 1 : 0) :
                     0;
 
-
-
             }
-
+            console.log(min+" "+max);
             return { boss: boss, max: max, min: min }
         },
         11: function () { //Agahnim's Tower
