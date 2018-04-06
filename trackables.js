@@ -220,13 +220,16 @@ map = {
 
 		$(".chest, .keyShop").hover(function () {	//Writes chest names to the caption when hovering
 
+			var states = ["UNAVAILABLE","AVAILABLE","DARK","POSSIBLE","CHECKABLE"];
 			id = (this.id.replace(/\D/g, ''));
 			if (this.id.indexOf("dungeonChest") >= 0) {
 				$("#caption").html(dungeons[id].name + " Chests");
 			} else if (this.id.indexOf("keyShop") >= 0) {
-				$("#caption").html(keyShops[id].name);
+				var state = logic.keyShops[id]();
+				$("#caption").html(keyShops[id].name+" &nbsp;<span class='captionState state"+state+"'>"+states[state]+"</span>");
 			} else {
-				$("#caption").html(chests[id].name);
+				var state = logic.chests[id]();
+				$("#caption").html(chests[id].name+" &nbsp;<span class='captionState state"+state+"'>"+states[state]+"</span>");
 			}
 
 		}, function () {
