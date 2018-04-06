@@ -186,6 +186,9 @@
 			<br/>
 			<input title="A Short, Wide Layout" class="radio Wide" type="radio" name="layout" value="3" onclick="settings.apply(false)">
 			<span class="radio Wide"> Wide</span>
+			<br/>
+			<input title="A condensed layout" class="radio AIO" type="radio" name="layout" value="4" onclick="settings.apply(false)">
+			<span class="radio AIO"> All-in-One</span>
 		</div>
 
 		<div class="selection" style="top: 40px;left:290px">
@@ -233,17 +236,15 @@
 			<span class="radio icon1"> Open</span>
 		</div>
 
-		<div class="selection" style="top: 150px;left:170px">
-			<b>&nbsp;MAPS</b>
+		<div class="selection" style="top:170px;left:170px">
+			<b>&nbsp;ICONS</b>
 			<br/>
-			<input title="No Map" class="radio mapOff" type="radio" name="mapAlign" value="0" onclick="settings.apply(false)">
-			<span class="radio mapOff"> Off</span>
+			<input title="In-World Style Icons" class="radio icon0" type="radio" name="iconSet" value="0" onclick="settings.apply(false)">
+			<span class="radio icon0"> In-World</span>
 			<br/>
-			<input title="Vertical Maps" class="radio mapV" type="radio" name="mapAlign" value="1" onclick="settings.apply(false)" checked>
-			<span class="radio mapV"> Vertical</span>
-			<br/>
-			<input title="Horizontal Maps" class="radio mapH" type="radio" name="mapAlign" value="2" onclick="settings.apply(false)">
-			<span class="radio mapH"> Horizontal</span>
+			<input title="Inventory Screen Style Icons" class="radio icon1" type="radio" name="iconSet" value="1" onclick="settings.apply(false)"
+			 checked>
+			<span class="radio icon1"> Inventory</span>
 		</div>
 
 		<div class="selection" style="top: 170px;left:290px">
@@ -258,15 +259,17 @@
 			<span class="radio dungeonDispPrizes"> Prizes</span>
 		</div>
 
-		<div class="selection" style="top:150px;left:410px">
-			<b>&nbsp;ICONS</b>
+		<div class="selection" style="top: 150px;left:410px">
+			<b>&nbsp;MAPS</b>
 			<br/>
-			<input title="In-World Style Icons" class="radio icon0" type="radio" name="iconSet" value="0" onclick="settings.apply(false)">
-			<span class="radio icon0"> In-World</span>
+			<input title="No Map" class="radio mapOff" type="radio" name="mapAlign" value="0" onclick="settings.apply(false)">
+			<span class="radio mapOff"> Off</span>
 			<br/>
-			<input title="Inventory Screen Style Icons" class="radio icon1" type="radio" name="iconSet" value="1" onclick="settings.apply(false)"
-			 checked>
-			<span class="radio icon1"> Inventory</span>
+			<input title="Vertical Maps" class="radio mapV" type="radio" name="mapAlign" value="1" onclick="settings.apply(false)" checked>
+			<span class="radio mapV"> Vertical</span>
+			<br/>
+			<input title="Horizontal Maps" class="radio mapH" type="radio" name="mapAlign" value="2" onclick="settings.apply(false)">
+			<span class="radio mapH"> Horizontal</span>
 		</div>
 
 	</div>
