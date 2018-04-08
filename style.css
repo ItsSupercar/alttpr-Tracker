@@ -90,7 +90,7 @@ body {
 #boomerang.state0 { background-position:-60px -64px}
 #boomerang.state1 { background-position:-60px 0px}
 #boomerang.state2 { background-position:-60px -512px}
-#boomerang.state3 { background-position:-384px -320px}
+#boomerang.state3 { background-position:-440px -512px}
 
 #hookshot { left:120px; top:0px; width: 64px; height:64px;}
 #hookshot.state0 { background-position:-120px -64px }
@@ -202,12 +202,13 @@ body {
 #glove.state1 { background-position:-384px -192px}
 #glove.state2 { background-position:-384px -256px}
 
-#flippers { left:0px; top:192px; width:64px; height:64px; }
+#flippers { left:0px; top:196px; width:64px; height:64px; }
 #flippers.state0 { background-position:-320px -448px }
 #flippers.state1 { background-position:-320px -384px }
-#halfmagic { left:64px; top:192px; width:64px; height:64px; }
-#halfmagic.state0 { background-position:-384px -448px  }
+#halfmagic { left:64px; top:196px; width:64px; height:64px; }
+#halfmagic.state0 { background-position:-384px -320px  }
 #halfmagic.state1 { background-position:-384px -384px  }
+#halfmagic.state2 { background-position:-384px -448px  }
 
 
 
@@ -309,37 +310,37 @@ body {
 .medal.state3 {  background-position: -380px -760px; }
 
 .key {width:44px;height:36px;top:72px}
-.key.state0 {background-position:-432px -584px}
-.key.state1 {background-position:-432px -620px}
-.key.state2 {background-position:-432px -656px}
-.key.state3 {background-position:-432px -692px}
-.key.state4 {background-position:-432px -728px}
-.key.state5 {background-position:-432px -764px}
-.key.state6 {background-position:-432px -800px}
-.key.state7 {background-position:-476px -512px}
-.key.state8 {background-position:-476px -548px}
-.key.state9 {background-position:-476px -584px}
-.key.state10 {background-position:-476px -620px;width:68px;margin-left:-4px}
-.key.state11 {background-position:-476px -656px;width:68px;margin-left:-4px}
-.key.state12 {background-position:-476px -692px;width:68px;margin-left:-4px}
-.key.state13 {background-position:-476px -728px;width:68px;margin-left:-4px}
-.key.state14 {background-position:-476px -764px;width:68px;margin-left:-4px}
-.key.state15 {background-position:-476px -800px;width:68px;margin-left:-4px}
-.key.state16 {background-position:-476px -836px;width:68px;margin-left:-4px}
-.key.state17 {background-position:-476px -872px;width:68px;margin-left:-4px}
-.key.state18 {background-position:-476px -908px;width:68px;margin-left:-4px}
-.key.state19 {background-position:-476px -944px;width:68px;margin-left:-4px}
-.key.state20 {background-position:-516px  0px;width:68px;margin-left:-4px}
-.key.state21 {background-position:-516px -36px;width:68px;margin-left:-4px}
-.key.state22 {background-position:-516px -72px;width:68px;margin-left:-4px}
-.key.state23 {background-position:-516px -108px;width:68px;margin-left:-4px}
-.key.state24 {background-position:-516px -144px;width:68px;margin-left:-4px}
-.key.state25 {background-position:-516px -180px;width:68px;margin-left:-4px}
-.key.state26 {background-position:-516px -216px;width:68px;margin-left:-4px}
-.key.state27 {background-position:-516px -252px;width:68px;margin-left:-4px}
-.key.state28 {background-position:-516px -288px;width:68px;margin-left:-4px}
-.key.state29 {background-position:-516px -324px;width:68px;margin-left:-4px}
-.key.infinite {background-position:-516px -360px;width:68px;margin-left:-4px}
+.key.state0 {background-position:-516px -0px}
+.key.state1 {background-position:-516px -36px}
+.key.state2 {background-position:-516px -72px}
+.key.state3 {background-position:-516px -108px}
+.key.state4 {background-position:-516px -144px}
+.key.state5 {background-position:-516px -180px}
+.key.state6 {background-position:-516px -216px}
+.key.state7 {background-position:-516px -252px}
+.key.state8 {background-position:-516px -288px}
+.key.state9 {background-position:-516px -324px}
+.key.state10 {background-position:-516px -360px;width:68px;margin-left:-4px}
+.key.state11 {background-position:-516px -396px;width:68px;margin-left:-4px}
+.key.state12 {background-position:-516px -432px;width:68px;margin-left:-4px}
+.key.state13 {background-position:-516px -468px;width:68px;margin-left:-4px}
+.key.state14 {background-position:-516px -504px;width:68px;margin-left:-4px}
+.key.state15 {background-position:-516px -540px;width:68px;margin-left:-4px}
+.key.state16 {background-position:-516px -576px;width:68px;margin-left:-4px}
+.key.state17 {background-position:-516px -612px;width:68px;margin-left:-4px}
+.key.state18 {background-position:-516px -648px;width:68px;margin-left:-4px}
+.key.state19 {background-position:-516px -684px;width:68px;margin-left:-4px}
+.key.state20 {background-position:-516px  -720px;width:68px;margin-left:-4px}
+.key.state21 {background-position:-516px -756px;width:68px;margin-left:-4px}
+.key.state22 {background-position:-516px -792px;width:68px;margin-left:-4px}
+.key.state23 {background-position:-516px -828px;width:68px;margin-left:-4px}
+.key.state24 {background-position:-516px -864px;width:68px;margin-left:-4px}
+.key.state25 {background-position:-516px -900px;width:68px;margin-left:-4px}
+.key.state26 {background-position:-516px -936px;width:68px;margin-left:-4px}
+.key.state27 {background-position:-516px -972px;width:68px;margin-left:-4px}
+.key.state28 {background-position:-516px -1008px;width:68px;margin-left:-4px}
+.key.state29 {background-position:-516px -1044px;width:68px;margin-left:-4px}
+.key.infinite {background-position:-516px -1080px;width:68px;margin-left:-4px}
 #key11 { left:36px }
 #key12 { left:-4px }
 

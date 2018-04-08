@@ -481,7 +481,7 @@ layout = {
 				{ elem: ".stuff8", props: { x: 356, y: 260 } },
 				{ elem: ".stuff9", props: { x: 424, y: 260 } },
 				{ elem: ".stuff10", props: { x: -5000, y: 4 } },
-				{ elem: ".stuff11", props: { x: 496, y: 240 } },
+				{ elem: ".stuff11", props: { x: 496, y: 260 } },
 			],
 			1: [//keysanity
 				{ elem: "#items", props: { width: 636, height: 416 } },
@@ -512,9 +512,9 @@ layout = {
 				{ elem: "#totalCover", props: { width: 620, height: 400 }, borderless: { width: 520, height: 450 } },
 				{ elem: "#dungeons", borderless:{x:"-=32",y:"-=16"} },
 				{ elem: "#dungeonChest11,#keyAny", props: { display: 'inline' } },
-				{ elem: ".stuff0", props: { x: 496, y: 4 } },
-				{ elem: ".stuff1", props: { x: 496, y: 76 } },
-				{ elem: ".stuff2", props: { x: 496, y: 148 } },
+				{ elem: ".stuff0", props: { x: 496, y: 44 } },
+				{ elem: ".stuff1", props: { x: 496, y: 116 } },
+				{ elem: ".stuff2", props: { x: 496, y: 188 } },
 				{ elem: ".stuff3", props: { x: 16, y: 260 } },
 				{ elem: ".stuff4", props: { x: 84, y: 260 } },
 				{ elem: ".stuff5", props: { x: 152, y: 260 } },
@@ -524,7 +524,7 @@ layout = {
 				{ elem: ".stuff9", props: { x: 424, y: 260 } },
 				{ elem: ".stuff10", props: { x: -5000, y: 4 } },
 				{ elem: ".stuff11", props: { x: 496, y: 260 } },
-				{ elem: "#keyAny", props: { x: 512, y: 148, left: 0, top: 72 } }
+				{ elem: "#keyAny", props: { x: 512, y: -64, left: 0, top: 72 } }
 			],
 		},
 	},

@@ -31,7 +31,7 @@ items = {				//a list of everything we're tracking-- includes all inventory item
 	boots: { val: 0, max: 1 },
 	glove: { val: 0, max: 2 },
 	flippers: { val: 0, max: 1 },
-	halfmagic: { val: 0, max: 1 },
+	halfmagic: { val: 0, max: 2 },
 	boss0: { val: 0, max: 1 }, //EP
 	boss1: { val: 0, max: 1 }, //DP
 	boss2: { val: 0, max: 1 }, //ToH

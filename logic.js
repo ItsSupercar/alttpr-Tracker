@@ -1200,41 +1200,38 @@ logic = {
                     0;
 
                 min = entry && logic.DMlight() ?
-                    (somaria && hammer && !firerod && boots && !hookshot && canClimb ? 1 : 0) +
-                    (somaria && hammer && !firerod && !boots && hookshot && canClimb ? 1 : 0) +
-                    (somaria && hammer && firerod && hookshot && canClimb ? 4 : 0) +
-                    (!somaria && hammer && boots && !hookshot && canClimb ? 1 : 0) +
-                    (somaria && hammer && !firerod && hookshot ? 5 : 0) +
-                    (somaria && !hammer && !firerod && canClimb ? 1 : 0) +
-                    (!somaria && !hammer && boots && canClimb ? 1 : 0) +
-                    (somaria && hammer && !boots && hookshot ? 1 : 0) +
-                    (!somaria && hammer && hookshot ? 5 : 0) +
-                    (somaria && firerod ? 9 : 0) +
-                    (somaria && boots ? 1 : 0) +
-                    (hammer && boots ? 1 : 0) +
-                    (hammer && hookshot ? 9 : 0) :
+                    (canClimb && somaria && !firerod && hammer && !hookshot && !boots ? 1 : 0) +
+                    (canClimb && somaria && firerod && hammer && hookshot && boots ? 4 : 0) +
+                    (canClimb && !somaria && !hammer && hookshot && boots ? 1 : 0) +
+                    (somaria && !firerod && hammer && !hookshot && boots ? 1 : 0) +
+                    (somaria && firerod && hammer && !hookshot ? 4 : 0) +
+                    (somaria && !firerod && hammer && hookshot ? 1 : 0) +
+                    (canClimb && !somaria && !hookshot && boots ? 1 : 0) +
+                    (canClimb && somaria && !firerod && !hammer ? 1 : 0) +
+                    (somaria && hammer && !hookshot && boots ? 1 : 0) +
+                    (somaria && firerod && !hammer ? 4 : 0) +
+                    (boots && (somaria || hammer) ? 1 : 0) +
+                    (hammer && hookshot ? 14 : 0) +
+                    (somaria && firerod ? 5 : 0) :
                     0;
 
                 max = entry ?
-                    2 + //hope room
-                    (somaria ? 1 : 0) + //tile room
+                    2 +
+                    (canClimb && somaria && firerod && hammer && hookshot && !boots ? 1 : 0) +
+                    (canClimb && !somaria && firerod && hammer && hookshot ? 2 : 0) +
+                    (canClimb && somaria && firerod && hammer && !hookshot ? 2 : 0) +
+                    (somaria && firerod && hammer && !hookshot ? 3 : 0) +
+                    (canClimb && !firerod && hammer && hookshot ? 2 : 0) +
+                    (canClimb && somaria && firerod && !hammer ? 2 : 0) +
+                    (canClimb && !hammer && hookshot ? 1 : 0) +
+                    (canClimb && somaria && !firerod ? 1 : 0) +
+                    (somaria && firerod && !hammer ? 3 : 0) +
+                    (hammer && !hookshot && boots ? 1 : 0) +
+                    (!canClimb && somaria ? 1 : 0) +
+                    (hammer && hookshot ? 14 : 0) +
+                    (somaria && firerod ? 5 : 0) +
                     (canClimb ? 2 : 0) +
-                    (canClimb && hookshot ? 1 : 0) +
-                    (canClimb && somaria && hammer && !hookshot && boots ? 2 : 0) +
-                    (canClimb && somaria && firerod ? 1 : 0) +
-                    (canClimb && somaria && !firerod && hammer && hookshot ? 2 : 0) +
-                    (canClimb && !somaria && hammer && hookshot ? 1 : 0) +
-                    (!canClimb && somaria && hammer && hookshot ? 1 : 0) +
-                    (!canClimb && somaria && !firerod && hammer && !hookshot && boots ? 2 : 0) +
-                    (!canClimb && somaria && firerod && hammer && hookshot && boots ? 1 : 0) +
-                    (somaria && firerod ? 8 : 0) +
-                    (somaria && !firerod && hammer && hookshot ? 4 : 0) +
-                    (somaria && !firerod && hammer && hookshot && boots ? 1 : 0) +
-                    (!somaria && hammer && hookshot ? 5 : 0) +
-                    (!somaria && hammer && boots ? 1 : 0) +
-                    (!somaria && hammer && !hookshot && boots ? 1 : 0) +
-                    (hammer && hookshot ? 9 : 0) +
-                    (!hammer && boots ? 1 : 0) :
+                    (boots ? 1 : 0) :
                     0;
 
             } else {    // REGULAR LOGIC
@@ -1273,7 +1270,7 @@ logic = {
                     0;
 
             }
-            console.log(min+" "+max);
+            console.log(min + " " + max);
             return { boss: boss, max: max, min: min }
         },
         11: function () { //Agahnim's Tower
