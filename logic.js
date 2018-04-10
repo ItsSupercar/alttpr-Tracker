@@ -123,7 +123,7 @@ logic = {
         11: function () { return 1; }, // Blind's Hideout
         12: function () { return items.boots.val; }, // Pegasus Rocks
         13: function () { return 1; }, // Bottle Merchant
-        14: function () { return items.powder.val; }, // Magic Bat
+        14: function () { return items.powder.val && (items.hammer.val || logic.darkWorldNW() && items.mirror.val); }, // Magic Bat
         15: function () { return items.bottle.val >= 1 ? 1 : 0; }, // Sick Kid
         16: function () { return 1; }, // Lost Woods Hideout
         17: function () { return items.boss11.val && items.boots.val ? 1 : 4; }, // Lumberjack Tree
@@ -1270,7 +1270,6 @@ logic = {
                     0;
 
             }
-            console.log(min + " " + max);
             return { boss: boss, max: max, min: min }
         },
         11: function () { //Agahnim's Tower
