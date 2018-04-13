@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>LTTP Randomizer Tracker</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/utils/Draggable.min.js"></script>
+    <script src="https://code.createjs.com/soundjs-0.6.1.min.js"></script>
+    <script src="https://code.createjs.com/preloadjs-0.6.1.min.js"></script>
+
+
+    <script src="logic.js"></script>
+    <script src="layout.js"></script>
+    <script src="trackables.js"></script>
+    <script src="moment.js"></script>
+
+
+    <style>
+        #timer {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 270px;
+            height: 50px;
+            transform: translateX(-50%) translateY(-50%) scale(2);
+            font-size: 45px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .timerDigit {
+            position: absolute;
+            top: 0px;
+            width: 30px;
+            height: 50px;
+            line-height: 50px;
+            overflow: hidden;
+        }
+
+        .digits {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #digit7 {
+            left: 0px;
+        }
+
+        #digit6 {
+            left: 50px;
+        }
+
+        #digit5 {
+            left: 80px;
+        }
+
+        #digit4 {
+            left: 130px;
+        }
+
+        #digit3 {
+            left: 160px;
+        }
+
+        #digit2 {
+            left: 210px;
+        }
+
+        #digit1 {
+            left: 240px;
+        }
+
+        .colon {
+            position: absolute;
+            height: 50px;
+            width: 20px;
+            line-height: 50px;
+            font-size: 45px;
+            font-weight: 700;
+            text-align: center;
+            color: #000;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div id="timer">
+
+     
+            <div class="timerDigit" id="digit1">
+                <span class="digits">0
+                    <br/>1
+                    <br/>2
+                    <br/>3
+                    <br/>4
+                    <br/>5
+                    <br/>6
+                    <br/>7
+                    <br/>8
+                    <br/>9
+                    <br/>0</span>
+            </div>
+
+            <div class="colon" style="left:30px">:</div>
+
+            <div class="timerDigit" id="digit2">
+                <span class="digits">0
+                    <br/>1
+                    <br/>2
+                    <br/>3
+                    <br/>4
+                    <br/>5
+                    <br/>6
+                    <br/>7
+                    <br/>8
+                    <br/>9
+                    <br/>0</span>
+            </div>
+
+            <div class="timerDigit" id="digit3">
+                <span class="digits">0
+                    <br/>1
+                    <br/>2
+                    <br/>3
+                    <br/>4
+                    <br/>5
+                    <br/>6
+                    <br/>7
+                    <br/>8
+                    <br/>9
+                    <br/>0</span>
+            </div>
+
+            <div class="colon" style="left:110px">:</div>
+
+            <div class="timerDigit" id="digit4">
+                <span class="digits">0
+                    <br/>1
+                    <br/>2
+                    <br/>3
+                    <br/>4
+                    <br/>5
+                    <br/>0</span>
+            </div>
+
+            <div class="timerDigit" id="digit5">
+                <span class="digits">0
+                    <br/>1
+                    <br/>2
+                    <br/>3
+                    <br/>4
+                    <br/>5
+                    <br/>6
+                    <br/>7
+                    <br/>8
+                    <br/>9
+                    <br/>0</span>
+            </div>
+
+            <div class="colon" style="left:190px">:</div>
+
+            <div class="timerDigit" id="digit6">
+                <span class="digits">0
+                    <br/>1
+                    <br/>2
+                    <br/>3
+                    <br/>4
+                    <br/>5
+                    <br/>0</span>
+            </div>
+
+            <div class="timerDigit" id="digit7">
+                <span class="digits">0
+                    <br/>1
+                    <br/>2
+                    <br/>3
+                    <br/>4
+                    <br/>5
+                    <br/>6
+                    <br/>7
+                    <br/>8
+                    <br/>9
+                    <br/>0</span>
+            </div>
+        
+
+    </div>
+
+
+
+
+    <script>
+
+
+        startTime = moment();
+
+        function checkTime() {
+            var timeChange = moment() - startTime + moment({ milliseconds: 500 });
+            var milliseconds = moment(timeChange).milliseconds();
+            var seconds = moment(timeChange).seconds();
+            var minutes = moment(timeChange).minutes();
+            var hours = moment(timeChange).hours();
+
+            if (milliseconds >= 100) {
+                scrollDigit(2, milliseconds.toString()[0]);
+                scrollDigit(1, milliseconds.toString()[1]);
+            } else if (milliseconds >= 10) {
+                scrollDigit(2, 0);
+                scrollDigit(1, milliseconds.toString()[0]);
+            } else {
+                scrollDigit(2, 0);
+                scrollDigit(1, 0);
+            }
+
+            if (seconds >= 10) {
+                scrollDigit(4, seconds.toString()[0]);
+                scrollDigit(3, seconds.toString()[1]);
+            } else {
+                scrollDigit(4, 0);
+                scrollDigit(3, seconds);
+            }
+
+            if (minutes >= 10) {
+                scrollDigit(6, minutes.toString()[0]);
+                scrollDigit(5, minutes.toString()[1]);
+            } else {
+                scrollDigit(6, 0);
+                scrollDigit(5, minutes);
+            }
+
+            if (hours <= 9) {
+                scrollDigit(7, hours);
+            }
+
+        }
+
+        digits = { 7: 0, 6: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
+
+
+        function scrollDigit(digit, num) {
+
+            var elem = "#digit" + digit + " .digits";
+            var speed = (digit <= 2) ? 0.05 : 0.5;
+            var ease = (digit <= 2) ? Linear.easeNone : Back.easeInOut.config(1.4);
+
+            if (digits[digit] !== num && !TweenMax.isTweening(elem)) {
+                if (num == 0) {
+                    pos = (digit == 6 || digit == 4) ? -300 : -500;
+                    TweenMax.to(elem, speed, {
+                        y: pos, ease: ease, onComplete: function () {
+                            TweenMax.set("#digit" + digit + " .digits", { y: 0 });
+                        }
+                    });
+                } else {
+                    TweenMax.to(elem, speed, { y: (-50 * num), ease: ease });
+                }
+            }
+
+            digits[digit] = num;
+        }
+
+
+        timerUpdate = setInterval(function () { checkTime(); }, 10);
+
+
+        running = false;
+        function toggleTimer() {
+            running = !running;
+            if(running) {startTimer();} else {pauseTimer();}
+        }
+
+    </script>
+
+
+
+
+</body>
+
+</html>

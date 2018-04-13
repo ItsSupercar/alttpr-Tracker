@@ -17,6 +17,9 @@
 	<script src="logic.js"></script>
 	<script src="layout.js"></script>
 	<script src="trackables.js"></script>
+	<script src="moment.js"></script>
+	<script src="timer.js"></script>
+	<script src="stats.js"></script>
 </head>
 
 <body>
@@ -145,6 +148,109 @@
 
 			<div class="icon key state0" id="keyAny" title="General-Use Key" onclick="toggle.icon(this)"></div>
 		</div>
+
+		<div class="tracker" id="timer" onclick="toggleTimer()">
+			<div class="trackerTitle"></div>
+			<div id="timerWrap">
+				<div class="timerDigit" id="digit1">
+					<span class="digits">0
+						<br/>1
+						<br/>2
+						<br/>3
+						<br/>4
+						<br/>5
+						<br/>6
+						<br/>7
+						<br/>8
+						<br/>9
+						<br/>0</span>
+				</div>
+
+				<div class="colon" id="colon7" style="left:50px">:</div>
+
+				<div class="timerDigit" id="digit2">
+					<span class="digits">0
+						<br/>1
+						<br/>2
+						<br/>3
+						<br/>4
+						<br/>5
+						<br/>6
+						<br/>7
+						<br/>8
+						<br/>9
+						<br/>0</span>
+				</div>
+
+				<div class="timerDigit" id="digit3">
+					<span class="digits">0
+						<br/>1
+						<br/>2
+						<br/>3
+						<br/>4
+						<br/>5
+						<br/>6
+						<br/>7
+						<br/>8
+						<br/>9
+						<br/>0</span>
+				</div>
+
+				<div class="colon" id="colon5" style="left:150px">:</div>
+
+				<div class="timerDigit" id="digit4">
+					<span class="digits">0
+						<br/>1
+						<br/>2
+						<br/>3
+						<br/>4
+						<br/>5
+						<br/>0</span>
+				</div>
+
+				<div class="timerDigit" id="digit5">
+					<span class="digits">0
+						<br/>1
+						<br/>2
+						<br/>3
+						<br/>4
+						<br/>5
+						<br/>6
+						<br/>7
+						<br/>8
+						<br/>9
+						<br/>0</span>
+				</div>
+
+				<div class="colon" style="left:250px;top:-4px">.</div>
+
+				<div class="timerDigit" id="digit6">
+					<span class="digits">0
+						<br/>1
+						<br/>2
+						<br/>3
+						<br/>4
+						<br/>5
+						<br/>0</span>
+				</div>
+
+				<div class="timerDigit" id="digit7">
+					<span class="digits">0
+						<br/>1
+						<br/>2
+						<br/>3
+						<br/>4
+						<br/>5
+						<br/>6
+						<br/>7
+						<br/>8
+						<br/>9
+						<br/>0</span>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
 	</div>
 
@@ -225,6 +331,18 @@
 			<br/>
 		</div>
 
+		<div class="selection" style="top: 40px;left:530px">
+			<b>&nbsp;TIMER
+				<br/>
+				<input title="No Timer" class="radio timerOff" type="radio" name="timerMode" value="0" onclick="settings.apply(false)" checked>
+				<span class="radio timerOff"> Off</span>
+				<br/>
+				<input title="Timer On (click to start/pause, right-click to reset)" class="radio timerOn" type="radio" name="timerMode"
+				 value="1" onclick="settings.apply(false)">
+				<span class="radio timerOn"> On</span>
+				<br/>
+		</div>
+
 
 		<div class="selection" style="top:150px;left:50px">
 			<b>&nbsp;STATE</b>
@@ -272,6 +390,21 @@
 			<span class="radio mapH"> Horizontal</span>
 		</div>
 
+		<div class="selection" style="top: 130px;left:530px">
+				<b>&nbsp;LOCATION<br/>&nbsp;PREDICTOR
+					<br/>
+					<input title="No Predictions" class="radio predictOff" type="radio" name="predictor" value="0" onclick="settings.apply(false)" checked>
+					<span class="radio predictOff"> Off</span>
+					<br/>
+					<input title="Predict for Accessible Locations" class="radio predictAccess" type="radio" name="predictor"
+					 value="1" onclick="settings.apply(false)">
+					<span class="radio predictAccess"> Accessible Only</span>
+					<br/>
+					<input title="Predict for All Locations" class="radio predictAll" type="radio" name="predictor"
+					 value="2" onclick="settings.apply(false)">
+					<span class="radio predictAll"> All</span>
+			</div>
+
 	</div>
 
 	<script>
@@ -280,6 +413,7 @@
 			layout.sizeMap($("input[name='mapAlign']:checked").val()); //arranges the maps to best fit on screen
 			map.populate();											//adds dungeons and chest icons to the maps
 			settings.applyCookie();									//applies saved user settings, or defaults if no cookie found
+			stats.fetch();											
 		});
 
 		$(window).resize(function () {
@@ -299,13 +433,26 @@
 			}
 		);
 
+
+		$(".icon").hover(
+			function () {
+				stats.find(this);
+			}, function () {
+				stats.clear();
+			}
+		);
+
 		$('.icon').mousedown(function (event) {					//adds listener for right-click on icons
 			if (event.which == 3) {
 				toggle.icon(this, true);
 			};
 		});
 
-
+		$('#timer').mousedown(function (event) {					//adds listener for right-click on icons
+			if (event.which == 3) {
+				resetTimer();
+			};
+		});
 
 
 	</script>

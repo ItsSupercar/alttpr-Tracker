@@ -110,7 +110,11 @@ logic = {
         3: function () { return items.mushroom.val; }, // Potion Shop
         4: function () { return items.flippers.val; }, // Zora's Ledge
         5: function () { return items.flippers.val; }, // Waterfall Fairy
-        6: function () { return (items.pendant.val == 3) ? 1 : items.book.val ? 4 : 0; }, // Master Sword Pedestal
+        6: function () {                            // Master Sword Pedestal
+            return (items.pendant.val == 3) ?
+                1 :
+                items.book.val ? 4 : 0;
+        },
         7: function () {                                                // King's Tomb
             return items.boots.val &&
                 (items.glove.val >= 2 ||
@@ -123,7 +127,11 @@ logic = {
         11: function () { return 1; }, // Blind's Hideout
         12: function () { return items.boots.val; }, // Pegasus Rocks
         13: function () { return 1; }, // Bottle Merchant
-        14: function () { return items.powder.val && (items.hammer.val || logic.darkWorldNW() && items.mirror.val); }, // Magic Bat
+        14: function () {           // Magic Bat
+            return items.powder.val &&
+                (items.hammer.val || logic.darkWorldNW() &&
+                    items.mirror.val);
+        },
         15: function () { return items.bottle.val >= 1 ? 1 : 0; }, // Sick Kid
         16: function () { return 1; }, // Lost Woods Hideout
         17: function () { return items.boss11.val && items.boots.val ? 1 : 4; }, // Lumberjack Tree

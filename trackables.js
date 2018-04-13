@@ -152,7 +152,7 @@ chests = {
 	61: { world: "DW", amount: 5, xPos: 59.9, yPos: 77.8, opened: false, status: null, name: "Hype Cave" },
 	62: { world: "DW", amount: 1, xPos: 30.9, yPos: 68.5, opened: false, status: null, name: "Stumpy" },
 	63: { world: "DW", amount: 1, xPos: 5.00, yPos: 69.9, opened: false, status: null, name: "Digging Game" },
-	64: { world: "DW", amount: 1, xPos: 4.00, yPos: 79.5, opened: false, status: null, name: "Mire Shed" },
+	64: { world: "DW", amount: 2, xPos: 4.00, yPos: 79.5, opened: false, status: null, name: "Mire Shed" },
 };
 
 dungeons = {
@@ -236,7 +236,7 @@ map = {
 			$("#caption").html("");
 		});
 
-		$(".icon, .dungeonChest").on("contextmenu", function () {
+		$(".icon, .dungeonChest, #timer").on("contextmenu", function () {
 			return false;
 		});
 

@@ -517,7 +517,7 @@ input {cursor:pointer;}
 	position:absolute;
 	bottom:-495px;
 	left:0px;
-	width:530px;
+	width:680px;
 	height:530px;
 	background-color:rgba(17,17,17,0);
 	border-radius:0px 10px 0px 0px;
@@ -566,3 +566,108 @@ input {cursor:pointer;}
 .captionState2 { color: #016f67; font-weight:700;}
 .captionState3 { color: #e4f400; font-weight:700;}
 .captionState4 { color: #e26d00; font-weight:700;}
+
+
+
+
+#timer {    
+	left:8px;
+    top:8px;
+    border-image: url(images/borderB.png) 20 round;
+    width:552px;
+	height:128px;
+	position: absolute;
+	font-size: 70px;
+	font-weight: 700;
+	text-align: center;
+	cursor:pointer;
+	/*font-family:'TW Cen MT Condensed'*/
+}
+#timer .trackerTitle{ background-position:0px -60px}
+
+#timerWrap {
+	position:absolute;
+	width:100%;
+	height:128px;
+	left:72px;
+	top:-6px;
+	overflow:hidden;
+	transform-origin:180px 48px;
+}
+
+.timerDigit {
+	position: absolute;
+	top: 0px;
+	width: 60px;
+	height: 100px;
+	line-height: 100px;
+	overflow: hidden;
+	text-align:center;
+	transform:translateX(-86.5px);
+}
+
+.digits {
+	width:40px;
+	position: absolute;
+	left: 10px;
+	top:-5px;
+	text-align:center;
+}
+
+#digit7 {
+	left: 0px;
+	opacity:0;
+}
+
+#colon7 {
+	opacity:0;
+}
+
+#digit6 {
+	left: 60px;
+	opacity:0;
+}
+
+#digit5 {
+	left: 100px;
+	opacity:0;
+}
+
+#colon5 {
+	opacity:0;
+}
+
+#digit4 {
+	left: 160px;
+	opacity:0;
+}
+
+#digit3 {
+	left: 200px;
+}
+
+#digit2 {
+	left: 260px;
+	font-size:50px;
+}
+
+#digit1 {
+	left: 290px;
+	font-size:50px;
+}
+
+#digit2 .digits, #digit1 .digits {
+	top:4px;
+}
+
+.colon {
+	position: absolute;
+	top:0px;
+	height: 96px;
+	width: 20px;
+	line-height: 96px;
+	font-size: 45px;
+	font-weight: 700;
+	text-align: center;
+	transform:translateY(8px) translateX(-86.5px);
+}

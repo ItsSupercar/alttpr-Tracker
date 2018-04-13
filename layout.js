@@ -61,6 +61,8 @@ settings = {
 		settings.combineFetch = $("input[name='combineFetch']:checked").val();
 		settings.dungeonDisp = $("input[name='dungeonDisp']:checked").val();
 		settings.openMode = $("input[name='openMode']:checked").val();
+		settings.timerMode = $("input[name='timerMode']:checked").val();
+		settings.predictor = $("input[name='predictor']:checked").val();
 
 		document.cookie = "settings=" + JSON.stringify(settings) + "; expires=Sat, 26 Dec 2025 12:00:00 UTC; path=/";
 
@@ -105,20 +107,31 @@ settings = {
 			$("#items").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderThinG.png) 20 round' });
 			$("#gear").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderThinR.png) 20 round' });
 			$("#dungeons").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderThinY.png) 20 round' });
+			$("#timer").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderThinB.png) 20 round' });
 			TweenMax.set(".trackerTitle", { opacity: 1, 'background-image': "url('images/title2.png')", x: 0, y: 0 });
 		} else if (settings.border == 3) {
 			$(".tracker").css({ 'border': '28px solid transparent', 'border-image': 'url(images/borderText.png) 28 round' });
-			TweenMax.set('.icon', { x: "-=8", y: "-=8" });
+			TweenMax.set('.icon, #timerWrap', { x: "-=8", y: "-=8" });
 			TweenMax.set(".trackerTitle", { opacity: 0, x: 0, y: 0 });
-			if (settings.layout == 4) {TweenMax.set('#dungeons .icon,#gear .icon', { x: "+=8", y: "+=8" });}
+			if (settings.layout == 4) { TweenMax.set('#dungeons .icon,#gear .icon', { x: "+=8", y: "+=8" }); }
 		} else if (settings.border == 2) {
 			$("#items").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderG.png) 20 round' });
 			$("#gear").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderR.png) 20 round' });
 			$("#dungeons").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderY.png) 20 round' });
+			$("#timer").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderB.png) 20 round' });
 			TweenMax.set(".trackerTitle", { opacity: 1, 'background-image': "url('images/title2.png')", x: 0, y: 0 });
+			TweenMax.set("#timerWrap",{scaleY:1});
 		} else if (settings.border == 1) {
 			$(".tracker").css({ 'border': '20px solid transparent', 'border-image': 'url(images/borderSimp.png) 20 round' });
 			TweenMax.set(".trackerTitle", { opacity: 1, 'background-image': "url('images/title1.png')", x: "-12", y: "-4" });
+			
+			if(settings.layout=="2") {
+			TweenMax.set("#timerWrap",{scaleY:1.1});
+			} else {
+			TweenMax.set("#timerWrap",{scaleX:1.15,scaleY:1.15});
+			}
+
+
 		} else {
 			$(".tracker").css({ 'border': 'solid 1px transparent', 'border-image': 'none' });
 			TweenMax.set('.icon', { x: "+=16" });
@@ -131,6 +144,16 @@ settings = {
 
 		TweenMax.set("#trackerBox", { 'display': 'inline' });
 
+
+
+		if (settings.timerMode == 1) {
+			TweenMax.set("#timer", { display: 'inline' });
+			TweenMax.set("#items,#gear,#dungeons", { y: "+=132" });
+			TweenMax.set("#totalCover", { height: "+=132" });
+
+		} else {
+			TweenMax.set("#timer", { display: 'none' });
+		}
 
 		//sizes the maps to fit the chosen layout
 		layout.sizeMap(settings.mapAlign);
@@ -177,13 +200,15 @@ layout = {
 				{ elem: ".keyShop", props: { display: 'none' } },
 				{ elem: "#dungeonChest11,.key,.bigKey", props: { display: 'none' } },
 				{ elem: ".trackerTitle", props: { display: 'inline' } },
+				{ elem: "#timer", props: { width: 552, height: 128 } },
+				{ elem: "#timerWrap", props: { x:0,y:0,width:552,"margin-left":0,scaleX:1,scaleY:1} },
 			],
 			0: [ //Regular
 				{ elem: "#totalCover", props: { width: 570, height: 540 }, borderless: { width: 520, height: 450 } },
 				{ elem: "#dungeons", props: { width: 552, height: 208 }, borderless: { x: "-=24", y: "-=48" } },
-				{ elem: ".stuff0", props: { x: 212, y: 4 } },
-				{ elem: ".stuff1", props: { x: 280, y: 4 } },
-				{ elem: ".stuff2", props: { x: 348, y: 4 } },
+				{ elem: ".stuff0", props: { x: 144, y: 4 } },
+				{ elem: ".stuff1", props: { x: 212, y: 4 } },
+				{ elem: ".stuff2", props: { x: 280, y: 4 } },
 				{ elem: ".stuff3", props: { x: 8, y: 80 } },
 				{ elem: ".stuff4", props: { x: 76, y: 80 } },
 				{ elem: ".stuff5", props: { x: 144, y: 80 } },
@@ -191,8 +216,8 @@ layout = {
 				{ elem: ".stuff7", props: { x: 280, y: 80 } },
 				{ elem: ".stuff8", props: { x: 348, y: 80 } },
 				{ elem: ".stuff9", props: { x: 416, y: 80 } },
-				{ elem: ".stuff10", props: { x: -5000, y: 4 } },
-				{ elem: ".stuff11", props: { x: 76, y: 4 } },
+				{ elem: ".stuff10", props: { x: 416, y: 4 } },
+				{ elem: ".stuff11", props: { x: 8, y: 4 } },
 			],
 			1: [//keysanity
 				{ elem: "#totalCover", props: { width: 570, height: 610 }, borderless: { width: 520, height: 510 } },
@@ -232,9 +257,9 @@ layout = {
 				{ elem: ".stuff7", props: { x: 280, y: 80 } },
 				{ elem: ".stuff8", props: { x: 348, y: 80 } },
 				{ elem: ".stuff9", props: { x: 416, y: 80 } },
-				{ elem: ".stuff10", props: { x: -5000, y: 4 } },
+				{ elem: ".stuff10", props: { x: 416, y: 4 } },
 				{ elem: ".stuff11", props: { x: 8, y: 4 } },
-				{ elem: "#keyAny", props: { x: 400, y: -48, left: 0, top: 72 } }
+				{ elem: "#keyAny", props: { x: 356, y: -48, left: 0, top: 72 } }
 			],
 		},
 		1: { //Arranges dungeons by their map positions; a little less economical
@@ -245,22 +270,24 @@ layout = {
 				{ elem: ".keyShop", props: { display: 'none' } },
 				{ elem: "#dungeonChest11,.key,.bigKey", props: { display: 'none' } },
 				{ elem: ".trackerTitle", props: { display: 'inline' } },
+				{ elem: "#timer", props: { width: 552, height: 128 } },
+				{ elem: "#timerWrap", props: { x:0,y:0,width:552,"margin-left":0,scaleX:1,scaleY:1} },
 			],
 			0: [ //Regular
 				{ elem: "#totalCover", props: { width: 570, height: 610 }, borderless: { width: 520, height: 520 } },
 				{ elem: "#dungeons", props: { width: 552, height: 280 }, borderless: { x: "-=20", y: "-=52" } },
-				{ elem: ".stuff0", props: { x: 96, y: 104 } },
-				{ elem: ".stuff1", props: { x: 16, y: 132 } },
-				{ elem: ".stuff2", props: { x: 32, y: 56 } },
-				{ elem: ".stuff3", props: { x: 396, y: 64 } },
-				{ elem: ".stuff4", props: { x: 316, y: 152 } },
-				{ elem: ".stuff5", props: { x: 284, y: -4 } },
-				{ elem: ".stuff6", props: { x: 236, y: 64 } },
-				{ elem: ".stuff7", props: { x: 388, y: 132 } },
-				{ elem: ".stuff8", props: { x: 248, y: 132 } },
-				{ elem: ".stuff9", props: { x: 352, y: -4 } },
-				{ elem: ".stuff10", props: { x: -5000, y: 0 } },
-				{ elem: ".stuff11", props: { x: 140, y: 4 } },
+				{ elem: ".stuff0", props: { x: 84, y: 64 } },
+				{ elem: ".stuff1", props: { x: 4, y: 92} },
+				{ elem: ".stuff2", props: { x: 20, y: 16 } },
+				{ elem: ".stuff3", props: { x: 416, y: 64 } },
+				{ elem: ".stuff4", props: { x: 336, y: 152 } },
+				{ elem: ".stuff5", props: { x: 304, y: -4 } },
+				{ elem: ".stuff6", props: { x: 256, y: 64 } },
+				{ elem: ".stuff7", props: { x: 408, y: 132 } },
+				{ elem: ".stuff8", props: { x: 268, y: 132 } },
+				{ elem: ".stuff9", props: { x: 372, y: -4 } },
+				{ elem: ".stuff10", props: { x:172, y: 152 } },
+				{ elem: ".stuff11", props: { x: 96, y: 152 } },
 			],
 			1: [//keysanity
 				{ elem: "#totalCover", props: { width: 570, height: 650 }, borderless: { width: 530, height: 560 } },
@@ -292,19 +319,19 @@ layout = {
 				{ elem: "#totalCover", props: { width: 570, height: 610 }, borderless: { width: 520, height: 520 } },
 				{ elem: "#dungeons", props: { width: 552, height: 280 }, borderless: { x: "-=20", y: "-=52" } },
 				{ elem: "#dungeonChest11,#keyAny", props: { display: 'inline' } },
-				{ elem: ".stuff0", props: { x: 96, y: 104 } },
-				{ elem: ".stuff1", props: { x: 16, y: 132 } },
-				{ elem: ".stuff2", props: { x: 32, y: 56 } },
-				{ elem: ".stuff3", props: { x: 396, y: 64 } },
-				{ elem: ".stuff4", props: { x: 316, y: 152 } },
-				{ elem: ".stuff5", props: { x: 284, y: -4 } },
-				{ elem: ".stuff6", props: { x: 236, y: 64 } },
-				{ elem: ".stuff7", props: { x: 388, y: 132 } },
-				{ elem: ".stuff8", props: { x: 248, y: 132 } },
-				{ elem: ".stuff9", props: { x: 352, y: -4 } },
-				{ elem: ".stuff10", props: { x: -5000, y: 0 } },
-				{ elem: ".stuff11", props: { x: 140, y: 4 } },
-				{ elem: "#keyAny", props: { x: 16, y: -60, left: 0, top: 72 } }
+				{ elem: ".stuff0", props: { x: 84, y: 64 } },
+				{ elem: ".stuff1", props: { x: 4, y: 92} },
+				{ elem: ".stuff2", props: { x: 20, y: 16 } },
+				{ elem: ".stuff3", props: { x: 416, y: 64 } },
+				{ elem: ".stuff4", props: { x: 336, y: 152 } },
+				{ elem: ".stuff5", props: { x: 304, y: -4 } },
+				{ elem: ".stuff6", props: { x: 256, y: 64 } },
+				{ elem: ".stuff7", props: { x: 408, y: 132 } },
+				{ elem: ".stuff8", props: { x: 268, y: 132 } },
+				{ elem: ".stuff9", props: { x: 372, y: -4 } },
+				{ elem: ".stuff10", props: { x:172, y: 152 } },
+				{ elem: ".stuff11", props: { x: 96, y: 152 } },
+				{ elem: "#keyAny", props: { x: 20, y: 112, left: 0, top: 72 } }
 			],
 		},
 		2: { //Taller, narrower layout
@@ -323,6 +350,8 @@ layout = {
 				{ elem: ".keyShop", props: { display: 'none' } },
 				{ elem: "#dungeonChest11,.key,.bigKey", props: { display: 'none' } },
 				{ elem: ".trackerTitle", props: { display: 'inline' } },
+				{ elem: "#timer", props: { width: 372, height: 128 } },
+				{ elem: "#timerWrap", props: { x:0,y:0,width:372,"margin-left":-90,'transform-origin':'180px 48px',scaleX:0.9,scaleY:1} },
 			],
 			0: [ //Regular
 				{ elem: "#totalCover", props: { width: 390, height: 810 }, borderless: { width: 390, height: 660 } },
@@ -391,6 +420,8 @@ layout = {
 				{ elem: "#dungeonChest11,.key,.bigKey", props: { display: 'none' } },
 				{ elem: ".keyShop", props: { display: 'none' } },
 				{ elem: ".trackerTitle", props: { display: 'inline' } },
+				{ elem: "#timer", props: { width: 552, height: 128 } },
+				{ elem: "#timerWrap", props: { x:0,y:0,width:552,"margin-left":0,scaleX:1,scaleY:1} },
 			],
 			0: [ //Regular
 				{ elem: "#totalCover", props: { width: 920, height: 330 }, borderless: { width: 810, height: 290 } },
@@ -466,9 +497,11 @@ layout = {
 				{ elem: "#mushroompowder,#powder,#quake,#book,#mirror", props: { x: 16 } },
 				{ elem: "#sword,#mail,#boots,#flippers", props: { x: 20 } },
 				{ elem: "#shield,#pearl,#glove,#halfmagic", props: { x: 24 } },
+				{ elem: "#timer", props: { width: 604, height: 128 } },
+				{ elem: "#timerWrap", props: { x:0,y:0,width:604,"margin-left":26,scaleX:1,scaleY:1} },
 			],
 			0: [ //Regular
-				{ elem: "#dungeons", borderless:{x:"-=32",y:"-=16"} },
+				{ elem: "#dungeons", borderless: { x: "-=32", y: "-=16" } },
 				{ elem: "#totalCover", props: { width: 620, height: 400 }, borderless: { width: 520, height: 450 } },
 				{ elem: ".stuff0", props: { x: 496, y: 24 } },
 				{ elem: ".stuff1", props: { x: 496, y: 96 } },
@@ -486,7 +519,7 @@ layout = {
 			1: [//keysanity
 				{ elem: "#items", props: { width: 636, height: 416 } },
 				{ elem: "#totalCover", props: { width: 650, height: 430 }, borderless: { width: 520, height: 510 } },
-				{ elem: "#dungeons", borderless:{x:"-=32",y:"-=16"} },
+				{ elem: "#dungeons", borderless: { x: "-=32", y: "-=16" } },
 				{ elem: "#dungeonChest11,.key,.bigKey", props: { display: 'inline' } },
 				{ elem: ".key", props: { left: 0, top: 72 } },
 				{ elem: ".bigKey", props: { left: 36, top: 72 } },
@@ -510,7 +543,7 @@ layout = {
 			2: [ //Retro
 				{ elem: ".keyShop", props: { display: 'inline' } },
 				{ elem: "#totalCover", props: { width: 620, height: 400 }, borderless: { width: 520, height: 450 } },
-				{ elem: "#dungeons", borderless:{x:"-=32",y:"-=16"} },
+				{ elem: "#dungeons", borderless: { x: "-=32", y: "-=16" } },
 				{ elem: "#dungeonChest11,#keyAny", props: { display: 'inline' } },
 				{ elem: ".stuff0", props: { x: 496, y: 44 } },
 				{ elem: ".stuff1", props: { x: 496, y: 116 } },
