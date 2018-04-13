@@ -366,8 +366,8 @@ layout = {
 				{ elem: ".stuff7", props: { x: 244, y: 80 } },
 				{ elem: ".stuff8", props: { x: 4, y: 156 } },
 				{ elem: ".stuff9", props: { x: 84, y: 156 } },
-				{ elem: ".stuff10", props: { x: -5000, y: 4 } },
-				{ elem: ".stuff11", props: { x: 244, y: 156 } },
+				{ elem: ".stuff10", props: { x: 244, y: 156 } },
+				{ elem: ".stuff11", props: { x: 164, y: 156 } },
 			],
 			1: [//keysanity
 				{ elem: "#totalCover", props: { width: 390, height: 910 }, borderless: { width: 390, height: 760 } },
@@ -436,8 +436,8 @@ layout = {
 				{ elem: ".stuff7", props: { x: 220, y: 92 } },
 				{ elem: ".stuff8", props: { x: 4, y: 172 } },
 				{ elem: ".stuff9", props: { x: 76, y: 172 } },
-				{ elem: ".stuff10", props: { x: -5000, y: 4 } },
-				{ elem: ".stuff11", props: { x: 220, y: 172 } },
+				{ elem: ".stuff10", props: { x: 220, y: 172 } },
+				{ elem: ".stuff11", props: { x: 148, y: 172 } },
 			],
 			1: [//keysanity
 				{ elem: "#totalCover", props: { width: 1070, height: 330 }, borderless: { width: 950, height: 290 } },

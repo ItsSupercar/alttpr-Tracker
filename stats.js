@@ -36,23 +36,23 @@ stats = {
             bow = settings.keyMode == 2 ? (items.bow.val == 2 && items.keyShopFound.val || items.bow.val == 3) : items.bow.val >= 2,
             fightLanmo = (items.hammer.val || items.sword.val >= 1 || bow || logic.cane() || logic.rod()),
 
-        list = [
-            items.glove.val == 0 || !entry ? "glove" : "",
-            !entry ? "book" : "",
-            !entry && !items.flute.val ? "flute" : "",
-            !entry && !items.mirror.val ? "mirror" : "",
-            !items.boots.val ? "boots" : "",
-            !fire ? "lamp" : "",
-            !fire || (!fightLanmo && !items.firerod.val) ? "firerod" : "",
-            !fightLanmo && !items.hammer.val ? "hammer" : "",
-            !fightLanmo && !items.sword.val ? "sword" : "",
-            !fightLanmo && !bow ? "bow" : "",
-            !fightLanmo && !items.somaria.val ? "somaria" : "",
-            !fightLanmo && !items.byrna.val ? "byrna" : "",
-            !fightLanmo && !items.icerod.val ? "icerod" : "",
-            settings.keyMode == 1 && !items.key1.val ? "key1" : "",
-            settings.keyMode == 1 && !items.bigKey1.val ? "bigKey1" : "",
-        ];
+            list = [
+                items.glove.val == 0 || !entry ? "glove" : "",
+                !entry ? "book" : "",
+                !entry && !items.flute.val ? "flute" : "",
+                !entry && !items.mirror.val ? "mirror" : "",
+                !items.boots.val ? "boots" : "",
+                !fire ? "lamp" : "",
+                !fire || (!fightLanmo && !items.firerod.val) ? "firerod" : "",
+                !fightLanmo && !items.hammer.val ? "hammer" : "",
+                !fightLanmo && !items.sword.val ? "sword" : "",
+                !fightLanmo && !bow ? "bow" : "",
+                !fightLanmo && !items.somaria.val ? "somaria" : "",
+                !fightLanmo && !items.byrna.val ? "byrna" : "",
+                !fightLanmo && !items.icerod.val ? "icerod" : "",
+                settings.keyMode == 1 && !items.key1.val ? "key1" : "",
+                settings.keyMode == 1 && !items.bigKey1.val ? "bigKey1" : "",
+            ];
 
         list = list.filter(Boolean);
         return list;
@@ -329,7 +329,7 @@ stats = {
 
         if (settings.predictor !== "0") {
 
-            if (elem.id.indexOf("medal") >= 0 || elem.id == "bomb" || items[elem.id].val == items[elem.id].max) {
+            if (elem.id.indexOf("medal") >= 0 || elem.id == "bomb" || elem.id.indexOf("ey") >= 0 || items[elem.id].val == items[elem.id].max) {
                 item = null;
             } else if (elem.id.indexOf("boss") >= 0 || elem.id.indexOf("prize") >= 0) {
                 id = (elem.id.replace(/\D/g, ''));
@@ -346,7 +346,8 @@ stats = {
 
             if (item !== null && item.constructor !== Array) { item = [item]; }
 
-            if (item !== null && typeof (item[0]) !== 'undefined') {
+            if (item !== null && typeof (item[0]) !== 'undefined' && typeof (statsTable[item[0]]) !== 'undefined') {
+
 
                 var counts = {};
 
@@ -405,16 +406,16 @@ stats = {
                 $.each(chestValues, function (id, count) {
                     var colorVal = Math.min(1, count / max);
                     var color = stats.gradient(colorVal, chestColors[id]);
-                    var color2 = stats.gradient(Math.max(0,colorVal*0.4), chestColors[id]);
-                    TweenMax.set("#chest" + id, { backgroundColor: color,color:color2,borderColor:color2 });
+                    var color2 = stats.gradient(Math.max(0, colorVal * 0.4), chestColors[id]);
+                    TweenMax.set("#chest" + id, { backgroundColor: color, color: color2, borderColor: color2 });
                 });
 
                 $.each(dungeonChestValues, function (id, count) {
                     var colorVal = Math.min(1, count / max);
                     var color = stats.gradient(colorVal, dungeonChestColors[id]);
-                    var color2 = stats.gradient(Math.max(0,colorVal*0.4), dungeonChestColors[id]);
-                    TweenMax.set("#dungeonChest" + id+", #dungeon"+id, { backgroundColor: color,color:color2,borderColor:color2 });
-    
+                    var color2 = stats.gradient(Math.max(0, colorVal * 0.4), dungeonChestColors[id]);
+                    TweenMax.set("#dungeonChest" + id + ", #dungeon" + id, { backgroundColor: color, color: color2, borderColor: color2 });
+
                 });
 
             }
