@@ -1413,6 +1413,7 @@ logic = {
     //function that runs through all chests/dungeons and calculates/applies their status
     apply: function () {
 
+        stats.clear();
         logic.setPrizes();
         if (settings.keyMode == 2) { logic.keyShopCheck(); }
 
@@ -1455,6 +1456,11 @@ logic = {
                 logic.colour("#chestPip" + id + "-" + chest, pipStatus);
             }
 
+            if (settings.predictor !== 0) {
+                stats.find("boss10");
+            } else {
+                stats.clear();
+            }
 
         });
 

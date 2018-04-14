@@ -443,9 +443,9 @@ body {
 }
 
 .unavail { background-color: #cb0b26; }
-.avail { background-color: #22ee3d; }
-.dark { background-color: #016f67; }
-.maybe { background-color: #e4f400; }
+.avail { background-color: #0cd46f; }
+.dark { background-color: #006999; }
+.maybe { background-color: #f4d800; }
 .visible { background-color: #e26d00; }
 .opened { background-color:#7f7f7f; color:#7f7f7f; }
 
@@ -476,12 +476,12 @@ body {
 }
 
 .keyShop.dark {
-	background-color: #016f67;
+	background-color: #006999;
 	color:#1fa874;
 }
 
 .keyShop.dark .keyCirc {
-	background-color: #016f67;
+	background-color: #006999;
 	border-color:#1fa874;
 }
 
@@ -562,9 +562,9 @@ input {cursor:pointer;}
 }
 
 .captionState0 { color: #cb0b26; font-weight:700;}
-.captionState1 { color: #22ee3d; font-weight:700;}
-.captionState2 { color: #016f67; font-weight:700;}
-.captionState3 { color: #e4f400; font-weight:700;}
+.captionState1 { color: #0cd46f; font-weight:700;}
+.captionState2 { color: #006999; font-weight:700;}
+.captionState3 { color: #f4d800; font-weight:700;}
 .captionState4 { color: #e26d00; font-weight:700;}
 
 

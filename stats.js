@@ -37,7 +37,7 @@ stats = {
             fightLanmo = (items.hammer.val || items.sword.val >= 1 || bow || logic.cane() || logic.rod()),
 
             list = [
-                items.glove.val == 0 || !entry ? "glove" : "",
+                items.glove.val == 0 || !entry && items.glove.val !== 2 ? "glove" : "",
                 !entry ? "book" : "",
                 !entry && !items.flute.val ? "flute" : "",
                 !entry && !items.mirror.val ? "mirror" : "",
@@ -319,6 +319,7 @@ stats = {
                     }
                 });
 
+                stats.find("boss10");
 
 
             }
@@ -326,6 +327,8 @@ stats = {
 
     },
     find: function (elem) {
+
+        if (typeof (elem) == "string") { elem = { id: elem }; }
 
         if (settings.predictor !== "0") {
 
@@ -365,15 +368,18 @@ stats = {
                 var dungeonChestValues = {}
                 var chestColors = {};
                 var dungeonChestColors = {};
+                var dungeonColors = {};
 
                 $.each(chests, function (id, chest) {
                     status = logic.chests[id]();
-                    access = (status == 1 || status == 2 || status == true);
+                    status = (status == true) ? 1 : status;
+                    access = (status == 1 || status == 2);
                     if (chest.opened == false && (access || settings.predictor == 2)) {
-                        chestValues[id] = counts["chest" + id];
-                        total += counts["chest" + id];
-                        max = Math.max(max, counts["chest" + id]);
-                        chestColors[id] = access ? 1 : 0;
+                        var count = counts["chest" + id] / chests[id].amount;
+                        chestValues[id] = count;
+                        total += count;
+                        max = Math.max(max, count);
+                        chestColors[id] = status;
                     }
                 });
 
@@ -382,7 +388,7 @@ stats = {
                     var opened = dungeon.openChests;
                     var unopened = numChests - opened;
                     var status = logic.dungeons[id]();
-                    var access = (opened < status.max);
+                    var access = (opened < status.min);
                     if (typeof (numChests) !== 'undefined' && unopened !== 0 && (access || settings.predictor == 2)) {
 
                         if (settings.predictor == 2) {
@@ -391,14 +397,16 @@ stats = {
                             factor = (status.max - opened) / numChests;
                         }
 
-                        dungeonChestValues[id] = counts["dungeonChest" + id] * factor;
+                        var count = counts["dungeonChest" + id] / numChests;
+                        dungeonChestValues[id] = count;
 
                         if (id !== "10") {    //ganon's tower has so many chests it unbalances the colour scale, so it is not factored in
-                            total += counts["dungeonChest" + id] * factor;
-                            max = Math.max(max, counts["dungeonChest" + id] * factor);
+                            total += count;
+                            max = Math.max(max, count);
                         }
 
-                        dungeonChestColors[id] = access ? 1 : 0;
+                        dungeonChestColors[id] = opened < status.min ? 1 : opened < status.max ? 3 : 0;
+                        dungeonColors[id] = status.boss;
                     }
                 });
 
@@ -407,17 +415,25 @@ stats = {
                     var colorVal = Math.min(1, count / max);
                     var color = stats.gradient(colorVal, chestColors[id]);
                     var color2 = stats.gradient(Math.max(0, colorVal * 0.4), chestColors[id]);
-                    TweenMax.set("#chest" + id, { backgroundColor: color, color: color2, borderColor: color2 });
+                    TweenMax.set("#chest" + id, { backgroundColor: color, color: color2 });
                 });
 
                 $.each(dungeonChestValues, function (id, count) {
                     var colorVal = Math.min(1, count / max);
                     var color = stats.gradient(colorVal, dungeonChestColors[id]);
                     var color2 = stats.gradient(Math.max(0, colorVal * 0.4), dungeonChestColors[id]);
-                    TweenMax.set("#dungeonChest" + id + ", #dungeon" + id, { backgroundColor: color, color: color2, borderColor: color2 });
+                    TweenMax.set("#dungeonChest" + id, { backgroundColor: color, color: color2 });
+
+                    if ((settings.predictor == 2 || dungeonColors[id] == 1) && dungeons[id].completed == false) {
+                        color = stats.gradient(colorVal, dungeonColors[id]);
+                        color2 = stats.gradient(Math.max(0, colorVal * 0.4), dungeonColors[id]);
+                        TweenMax.set("#dungeon" + id, { backgroundColor: color, color: color2 });
+                    }
 
                 });
 
+            } else {
+                stats.clear();
             }
         }
 
@@ -425,13 +441,29 @@ stats = {
     gradient: function (val, type) {
 
         if (type == 0) {
-            red = (-387.075818330793 * val * val) + (637.014219325006 * val);
-            gre = (256.077255279893 * val * val) + (- 83.7053166106298 * val);
-            blu = (43.2254406911161 * val * val) + (61.0596304472031 * val);
+            red = (791.666666666672 * val * val * val) + (- 1462.5 * val * val) + (925.833333333321 * val);
+            gre = (595.238095238106 * val * val * val) + (- 514.285714285739 * val * val) + (84.0476190476184 * val);
+            blu = (704.761904761893 * val * val * val) + (- 945.714285714275 * val * val) + (370.952380952371 * val);
+        } else if (type == 1) {
+            red = (641.701574890012 * val * val * val) + (- 601.929049935723 * val * val) + (124.175218895945 * val);
+            gre = (-201.117873112472 * val * val) + (443.714553065043 * val);
+            blu = (553.452890589906 * val * val * val) + (- 1020.9168880102 * val * val) + (602.442172942296 * val);
+        } else if (type == 2) {
+            red = (395.833333333339 * val * val * val) + (- 356.25 * val * val) + (55.4166666666661 * val);
+            gre = (874.999999999985 * val * val * val) + (- 1167.49999999999 * val * val) + (538.499999999971 * val);
+            blu = (967.857142857123 * val * val * val) + (- 1713.92857142855 * val * val) + (944.071428571406 * val);
+        } else if (type == 3) {
+            red = (217.857142857101 * val * val * val) + (- 698.928571428536 * val * val) + (731.071428571391 * val);
+            gre = (-598.809523809556 * val * val * val) + (796.071428571449 * val * val) + (44.7380952380627 * val);
+            blu = (533.333333333336 * val * val * val) + (- 489.999999999993 * val * val) + (81.6666666666606 * val);
+        } else if (type == 4) {
+            red = (572.61904761901 * val * val * val) + (- 1199.6428571428 * val * val) + (882.023809523758 * val);
+            gre = (-67.261904761901 * val * val * val) + (291.964285714275 * val * val) + (15.7023809523889 * val);
+            blu = (758.333333333336 * val * val * val) + (- 922.500000000007 * val * val) + (274.166666666659 * val);
         } else {
-            red = (-4.02672545029319 * val * val) + (4.04491753044072 * val);
-            gre = (-140.5183119897 * val * val) + (392.427282551262 * val);
-            blu = (-394.986173915069 * val * val) + (562.928864435022 * val);
+            red = (641.701574890012 * val * val * val) + (- 601.929049935723 * val * val) + (124.175218895945 * val);
+            gre = (-201.117873112472 * val * val) + (443.714553065043 * val);
+            blu = (553.452890589906 * val * val * val) + (- 1020.9168880102 * val * val) + (602.442172942296 * val);
         }
 
         red = Math.min(255, Math.max(red, 0));

@@ -391,19 +391,19 @@
 		</div>
 
 		<div class="selection" style="top: 130px;left:530px">
-				<b>&nbsp;LOCATION<br/>&nbsp;PREDICTOR
-					<br/>
-					<input title="No Predictions" class="radio predictOff" type="radio" name="predictor" value="0" onclick="settings.apply(false)" checked>
-					<span class="radio predictOff"> Off</span>
-					<br/>
-					<input title="Predict for Accessible Locations" class="radio predictAccess" type="radio" name="predictor"
-					 value="1" onclick="settings.apply(false)">
-					<span class="radio predictAccess"> Accessible Only</span>
-					<br/>
-					<input title="Predict for All Locations" class="radio predictAll" type="radio" name="predictor"
-					 value="2" onclick="settings.apply(false)">
-					<span class="radio predictAll"> All</span>
-			</div>
+			<b>&nbsp;LOCATION
+				<br/>&nbsp;PREDICTOR
+				<br/>
+				<input title="No Predictions" class="radio predictOff" type="radio" name="predictor" value="0" onclick="settings.apply(false)"
+				 checked>
+				<span class="radio predictOff"> Off</span>
+				<br/>
+				<input title="Predict for Accessible Locations" class="radio predictAccess" type="radio" name="predictor" value="1" onclick="settings.apply(false)">
+				<span class="radio predictAccess"> Accessible Only</span>
+				<br/>
+				<input title="Predict for All Locations" class="radio predictAll" type="radio" name="predictor" value="2" onclick="settings.apply(false)">
+				<span class="radio predictAll"> All</span>
+		</div>
 
 	</div>
 
@@ -413,7 +413,7 @@
 			layout.sizeMap($("input[name='mapAlign']:checked").val()); //arranges the maps to best fit on screen
 			map.populate();											//adds dungeons and chest icons to the maps
 			settings.applyCookie();									//applies saved user settings, or defaults if no cookie found
-			stats.fetch();											
+			stats.fetch();
 		});
 
 		$(window).resize(function () {
@@ -438,7 +438,13 @@
 			function () {
 				stats.find(this);
 			}, function () {
-				stats.clear();
+
+				if (settings.predictor == 0) {
+					stats.clear();
+				} else {
+					stats.find("boss10");
+				}
+
 			}
 		);
 
