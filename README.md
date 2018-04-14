@@ -23,7 +23,7 @@ This is a browser-based tracker. You can simply open index.html directly to begi
 ###### COLOUR LEGEND
 
 Icons on the map are displayed in various colours. Here's what they mean:
-RED: This item is not accessible.
+- **RED:** This item is not accessible.
 - **ORANGE**: This item is not accessible, but it is possible to check what it is.
 - **GREEN**: This item is accessible.
 - **BLUE**: This item is accessible, but only by traversing a dark room.
