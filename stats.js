@@ -282,13 +282,8 @@ stats = {
         list = list.filter(Boolean);
         return list;
     },
-    fetch: function () {
-        $.ajax({
-            type: "GET",
-            url: "stats_standard_random.csv",
-            dataType: "text",
-            success: function (data) {
-
+    fetch:  function () {
+                data=strStats;
                 //convert the CSV into a javascript object
                 data = data.split(/\r\n|\n/);
                 $.each(data, function (row, values) {
@@ -322,10 +317,7 @@ stats = {
                 stats.find("boss10");
 
 
-            }
-        });
-
-    },
+            },
     find: function (elem) {
 
         if (typeof (elem) == "string") { elem = { id: elem }; }
